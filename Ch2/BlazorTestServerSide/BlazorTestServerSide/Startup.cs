@@ -63,7 +63,7 @@ namespace BlazorTestServerSide
                 endpoints.MapFallbackToPage("/_Host");
             });
         }
-        //</StartupConfigureServices>
+        //</StartupConfigure>
     }
 
 }
