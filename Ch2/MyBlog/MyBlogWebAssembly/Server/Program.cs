@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MyBlogWebAssembly.Server
 {
+    //<Program>
     public class Program
     {
         public static void Main(string[] args)
@@ -23,4 +24,5 @@ namespace MyBlogWebAssembly.Server
                     webBuilder.UseStartup<Startup>();
                 });
     }
+    //</Program>
 }
