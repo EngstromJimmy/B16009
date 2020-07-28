@@ -9,7 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace MyBlogWebAssembly.Client
-{
+{    
+    //<WASMProgram>
     public class Program
     {
         public static async Task Main(string[] args)
@@ -22,4 +23,5 @@ namespace MyBlogWebAssembly.Client
             await builder.Build().RunAsync();
         }
     }
+    //</WASMProgram>
 }
