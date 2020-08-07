@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MyBlogWebAssembly.Server.Controllers
 {
+    //<APIController>
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -37,4 +38,5 @@ namespace MyBlogWebAssembly.Server.Controllers
             .ToArray();
         }
     }
+    //</APIController>
 }
