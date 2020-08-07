@@ -1,8 +1,11 @@
-﻿@page "/fetchdata"
+﻿@*<FetchDataTopServer>*@
+@page "/fetchdata"
 
 @using MyBlogServerSide.Data
 @inject WeatherForecastService ForecastService
+@*</FetchDataTopServer>*@
 
+@*<FetchDataShowDataServer>*@
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from a service.</p>
@@ -35,12 +38,15 @@ else
         </tbody>
     </table>
 }
+@*</FetchDataShowDataServer>*@
 
 @code {
+    @*<FetchDataCodeServer>*@
     private WeatherForecast[] forecasts;
 
     protected override async Task OnInitializedAsync()
     {
         forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
     }
+    @*</FetchDataCodeServer>*@
 }

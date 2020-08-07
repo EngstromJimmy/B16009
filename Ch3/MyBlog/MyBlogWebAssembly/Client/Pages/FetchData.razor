@@ -1,7 +1,8 @@
-﻿@page "/fetchdata"
+﻿@*<FetchDataTopClient>*@
+@page "/fetchdata"
 @using MyBlogWebAssembly.Shared
 @inject HttpClient Http
-
+@*<FetchDataTopClient>*@
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from the server.</p>
@@ -36,11 +37,12 @@ else
 }
 
 @code {
+    @*<FetchDataCodeClient>*@
     private WeatherForecast[] forecasts;
 
     protected override async Task OnInitializedAsync()
     {
         forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
     }
-
+    @*<FetchDataCodeClient>*@
 }
