@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace MyBlogServerSide.Data
 {
+    //<WeatherForecastService>
     public class WeatherForecastService
     {
         private static readonly string[] Summaries = new[]
@@ -22,4 +23,5 @@ namespace MyBlogServerSide.Data
             }).ToArray());
         }
     }
+    //</WeatherForecastService>
 }
