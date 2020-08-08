@@ -30,11 +30,3 @@ namespace MyBlogServerSide.Pages
         
     }
 }
-
-
-
-
-
-
-}
-}
