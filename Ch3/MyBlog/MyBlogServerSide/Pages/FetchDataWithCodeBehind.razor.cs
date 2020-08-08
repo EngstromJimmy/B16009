@@ -8,6 +8,7 @@ using MyBlogServerSide.Data;
 
 namespace MyBlogServerSide.Pages
 {
+    //<FetchDataWithCodeBehind>
     public partial class FetchDataWithCodeBehind
     {
         [Inject]
@@ -19,4 +20,5 @@ namespace MyBlogServerSide.Pages
             forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
         }
     }
+    //</FetchDataWithCodeBehind>
 }
