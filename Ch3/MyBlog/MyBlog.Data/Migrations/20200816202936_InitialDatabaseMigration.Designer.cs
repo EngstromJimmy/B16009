@@ -9,7 +9,7 @@ using MyBlog.Data;
 namespace MyBlog.Data.Migrations
 {
     [DbContext(typeof(MyBlogDbContext))]
-    [Migration("20200816201619_InitialDatabaseMigration")]
+    [Migration("20200816202936_InitialDatabaseMigration")]
     partial class InitialDatabaseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
