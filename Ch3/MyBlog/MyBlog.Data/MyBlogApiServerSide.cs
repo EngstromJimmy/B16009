@@ -11,10 +11,11 @@ namespace MyBlog.Data
     public class MyBlogApiServerSide : IMyBlogApi
     {
         //<Constructor>
-        DbContextFactory<MyBlogDbContext> factory;
-        public MyBlogApiServerSide(DbContextFactory<MyBlogDbContext> factory)
+        IDbContextFactory<MyBlogDbContext> factory;
+        public MyBlogApiServerSide(IDbContextFactory<MyBlogDbContext> factory)
         {
             this.factory = factory;
+            using var context = factory.CreateDbContext();
         }
         //</Constructor>
 
@@ -57,33 +58,36 @@ namespace MyBlog.Data
         //</Get>
 
         //<Delete>
-        public async Task DeleteBlogPostAsync(BlogPost item)
+        private async Task deleteItem(IMyBlogItem item)
         {
             using var context = factory.CreateDbContext();
-            context.BlogPosts.Remove(item);
+            context.Remove(item);
             await context.SaveChangesAsync();
+        }
+        //</Delete>
+        
+        //<DeleteMethods>
+        public async Task DeleteBlogPostAsync(BlogPost item)
+        {
+            await deleteItem(item);
         }
 
         public async Task DeleteCategoryAsync(Category item)
         {
-            using var context = factory.CreateDbContext();
-            context.Categories.Remove(item);
-            await context.SaveChangesAsync();
+            await deleteItem(item);
         }
 
         public async Task DeleteTagAsync(Tag item)
         {
-            using var context = factory.CreateDbContext();
-            context.Tags.Remove(item);
-            await context.SaveChangesAsync();
+            await deleteItem(item);
         }
-        //</Delete>
+        //</DeleteMethods>
 
         //<Save>
-        public async Task<BlogPost> SaveBlogPostAsync(BlogPost item)
+        private async Task<IMyBlogItem> saveItem(IMyBlogItem item)
         {
             using var context = factory.CreateDbContext();
-            if(item.Id==0)
+            if (item.Id == 0)
             {
                 context.Add(item);
             }
@@ -93,37 +97,22 @@ namespace MyBlog.Data
             }
             await context.SaveChangesAsync();
             return item;
+        }
+
+        public async Task<BlogPost> SaveBlogPostAsync(BlogPost item)
+        {
+            return (await saveItem(item)) as BlogPost;
         }
 
         public async Task<Category> SaveCategoryAsync(Category item)
         {
-            using var context = factory.CreateDbContext();
-            if (item.Id == 0)
-            {
-                context.Add(item);
-            }
-            else
-            {
-                context.Attach(item);
-            }
-            await context.SaveChangesAsync();
-            return item;
+            return (await saveItem(item)) as Category;
         }
 
         public async Task<Tag> SaveTagAsync(Tag item)
         {
-            using var context = factory.CreateDbContext();
-            if (item.Id == 0)
-            {
-                context.Add(item);
-            }
-            else
-            {
-                context.Attach(item);
-            }
-            await context.SaveChangesAsync();
-            return item;
+            return (await saveItem(item)) as Tag;
         }
-        //</Save>
+        //</Save> 
     }
 }

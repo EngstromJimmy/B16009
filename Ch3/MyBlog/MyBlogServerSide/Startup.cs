@@ -6,10 +6,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MyBlog.Data;
+using MyBlog.Data.Interfaces;
 using MyBlogServerSide.Data;
+
 
 namespace MyBlogServerSide
 {
@@ -34,13 +38,20 @@ namespace MyBlogServerSide
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            //<AddMyBlogDataServices>
+            services.AddDbContextFactory<MyBlogDbContext>(opt => opt.UseSqlite($"Data Source=../MyBlog.db"));
+            services.AddScoped<IMyBlogApi, MyBlogApiServerSide>();
+            //</AddMyBlogDataServices>
         }
         //</StartupConfigureServices>
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        //<StartupConfigure>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+
+        //<ConfigureMigrate>
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbContextFactory<MyBlogDbContext> factory)
         {
+            factory.CreateDbContext().Database.Migrate();
+        //<ConfigureMigrate>
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -62,7 +73,6 @@ namespace MyBlogServerSide
                 endpoints.MapFallbackToPage("/_Host");
             });
         }
-        //</StartupConfigure>
     }
 
 }

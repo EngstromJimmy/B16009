@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlogWebAssembly.Client", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlogWebAssembly.Shared", "MyBlogWebAssembly\Shared\MyBlogWebAssembly.Shared.csproj", "{D63645C5-73B5-40DD-9655-95C5A9FA12F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlog.Data", "MyBlog.Data\MyBlog.Data.csproj", "{99DEF156-7832-4A2D-82E7-9CA9E68B36AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog.Data", "MyBlog.Data\MyBlog.Data.csproj", "{99DEF156-7832-4A2D-82E7-9CA9E68B36AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
