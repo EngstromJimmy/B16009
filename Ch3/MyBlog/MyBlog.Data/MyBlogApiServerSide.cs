@@ -15,7 +15,6 @@ namespace MyBlog.Data
         public MyBlogApiServerSide(IDbContextFactory<MyBlogDbContext> factory)
         {
             this.factory = factory;
-            using var context = factory.CreateDbContext();
         }
         //</Constructor>
 
