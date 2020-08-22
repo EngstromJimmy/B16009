@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +11,7 @@ using MyBlogServerSide.Data;
 
 namespace MyBlogServerSide
 {
-    
+
     public class Startup
     {
         //<Startup>
@@ -51,7 +45,7 @@ namespace MyBlogServerSide
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbContextFactory<MyBlogDbContext> factory)
         {
             factory.CreateDbContext().Database.Migrate();
-        //<ConfigureMigrate>
+        //</ConfigureMigrate>
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
