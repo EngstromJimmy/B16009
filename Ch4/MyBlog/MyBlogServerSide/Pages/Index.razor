@@ -4,6 +4,9 @@
 @inject MyBlogApiServerSide api
 
 @code{
+    //<AddVariable>
+    protected List<BlogPost> posts = new List<BlogPost>();
+    //</AddVariable>
     protected async Task AddSomePosts()
     {
         for (int i = 1; i <= 10; i++)
