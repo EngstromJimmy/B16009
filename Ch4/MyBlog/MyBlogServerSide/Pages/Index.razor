@@ -1,7 +1,14 @@
 ﻿@page "/"
+@using MyBlog.Data;
+@using MyBlog.Data.Models;
+@inject MyBlogApiServerSide api
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code{
+    protected async Task AddSomePosts()
+    {
+        for (int i = 1; i <= 10; i++)
+        {
+            await api.SaveBlogPostAsync(new BlogPost() { PublishDate = DateTime.Now, Title = $"Blog post {i}", Text = "Text");
+        }
+    }
+}
