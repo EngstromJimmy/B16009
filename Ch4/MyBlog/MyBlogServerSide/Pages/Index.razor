@@ -7,6 +7,14 @@
     //<AddVariable>
     protected List<BlogPost> posts = new List<BlogPost>();
     //</AddVariable>
+
+    //<LoadData>
+    protected override async Task OnInitializedAsync()
+    {
+        posts = await api.GetBlogPostsAsync(10, 0);
+        await base.OnInitializedAsync();
+    }
+    //</LoadData>
     protected async Task AddSomePosts()
     {
         for (int i = 1; i <= 10; i++)
