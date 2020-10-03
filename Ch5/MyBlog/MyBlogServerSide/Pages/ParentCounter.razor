@@ -1,0 +1,9 @@
+﻿@page "/ParentCounter"
+<CounterWithParameter IncrementAmount="incrementamount" CurrentCount="currentcount"></CounterWithParameter>
+
+The current count is: @currentcount
+
+@code {
+    int incrementamount = 10;
+    int currentcount = 0;
+}
