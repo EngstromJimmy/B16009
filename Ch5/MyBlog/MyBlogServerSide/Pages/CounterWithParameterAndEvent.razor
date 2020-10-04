@@ -13,10 +13,10 @@
     [Parameter]
     public EventCallback<int> CurrentCountChanged { get; set; }
 
-    private void IncrementCount()
+    private async Task IncrementCount()
     {
         CurrentCount += IncrementAmount;
-        CurrentCountChanged.InvokeAsync(CurrentCount);
+        await CurrentCountChanged.InvokeAsync(CurrentCount);
     }
     //</eventcallback>
 }
