@@ -1,4 +1,4 @@
-﻿<div class="@($"alert alert-{Style.ToString()}")" role="alert">
+﻿<div class="@($"alert alert-{Style.ToString().ToLower()}")" role="alert">
     @ChildContent
 </div>
 
@@ -12,14 +12,14 @@
     @*<enum>*@
     public enum AlertStyle
     {
-        primary,
-        secondary,
+        Primary,
+        Secondary,
         success,
-        danger,
-        warning,
-        info,
-        light,
-        dark
+        Danger,
+        Warning,
+        Info,
+        Light,
+        Dark
     }
     @*</enum>*@
 }
