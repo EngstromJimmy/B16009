@@ -4,23 +4,23 @@
 
 @code{
     [Parameter]
-    public RenderFragment ChildContent { get; set; }
+    public RenderFragment ChildContent { get; set; }=@<b>This is a default value</b>;
 
-    @*<prop>*@
+@*<prop>*@
     [Parameter]
-    public AlertStyle Style { get; set; }
-    @*</prop>*@
-    @*<enum>*@
-    public enum AlertStyle
-    {
-        Primary,
-        Secondary,
-        Success,
-        Danger,
-        Warning,
-        Info,
-        Light,
-        Dark
-    }
-    @*</enum>*@
+        public AlertStyle Style { get; set; }
+        @*</prop>*@
+        @*<enum>*@
+        public enum AlertStyle
+        {
+            Primary,
+            Secondary,
+            Success,
+            Danger,
+            Warning,
+            Info,
+            Light,
+            Dark
+        }
+        @*</enum>*@
 }
