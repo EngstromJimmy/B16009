@@ -4,8 +4,11 @@
 
 @code{
     public RenderFragment ChildContent { get; set; }
-    public AlertStyle Style { get; set; }
 
+    @*<prop>*@
+    public AlertStyle Style { get; set; }
+    @*</prop>*@
+    @*<enum>*@
     public enum AlertStyle
     {
         primary,
@@ -17,4 +20,5 @@
         light,
         dark
     }
+    @*</enum>*@
 }
