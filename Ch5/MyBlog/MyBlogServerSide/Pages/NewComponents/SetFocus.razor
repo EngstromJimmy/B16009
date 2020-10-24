@@ -1,0 +1,10 @@
+﻿@page "/SetFocus"
+
+<h3>SetFocus</h3>
+
+<button @onclick="() => textInput.FocusAsync()">Set focus</button>
+<input @ref="textInput" />
+
+@code {
+    ElementReference textInput;
+}
