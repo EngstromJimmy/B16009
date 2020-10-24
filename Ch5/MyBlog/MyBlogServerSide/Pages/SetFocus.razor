@@ -1,10 +1,14 @@
-﻿@page "/SetFocus"
+﻿@*<Page>*@
+@page "/SetFocus"
+@*</Page>*@
 
-<h3>SetFocus</h3>
-
-<button @onclick="() => textInput.FocusAsync()">Set focus</button>
+@*<Input>*@
 <input @ref="textInput" />
+<button @onclick="() => textInput.FocusAsync()">Set focus</button>
+@*</Input>*@
 
+@*<Code>*@
 @code {
     ElementReference textInput;
 }
+@*</Code>*@
