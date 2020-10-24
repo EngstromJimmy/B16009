@@ -8,6 +8,7 @@
 @*<ShowingThePost>*@
 @if (BlogPost != null)
 {
+    <Title Value="@BlogPost.Title"></Title>
     <h3>@BlogPost.Title</h3>
     @((MarkupString)BlogPost.Text)
 }
