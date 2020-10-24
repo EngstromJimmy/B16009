@@ -6,7 +6,8 @@ namespace MyBlog.Data.Interfaces
 {
     public interface IMyBlogApi
     {
-        Task<List<BlogPost>> GetBlogPostsAsync(int pagesize, int page);
+        Task<int> GetBlogPostCountAsync();
+        Task<List<BlogPost>> GetBlogPostsAsync(int numberofposts, int startindex);
         Task<List<Category>> GetCategoriesAsync();
         Task<List<Tag>> GetTagsAsync();
 

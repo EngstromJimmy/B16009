@@ -25,10 +25,16 @@ namespace MyBlog.Data
             return await context.BlogPosts.Include(p=>p.Category).Include(p=>p.Tags).FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<List<BlogPost>> GetBlogPostsAsync(int pagesize,int page)
+        public async Task<int> GetBlogPostCountAsync()
         {
             using var context = factory.CreateDbContext();
-            return await context.BlogPosts.Skip(pagesize*page).Take(pagesize).ToListAsync();
+            return await context.BlogPosts.CountAsync();
+        }
+
+        public async Task<List<BlogPost>> GetBlogPostsAsync(int numberofposts, int startindex)
+        {
+            using var context = factory.CreateDbContext();
+            return await context.BlogPosts.OrderByDescending(p=>p.PublishDate).Skip(startindex).Take(numberofposts).ToListAsync();
         }
 
         public async Task<List<Category>> GetCategoriesAsync()

@@ -13,7 +13,7 @@
 
     <Meta  property="og:title" content="@BlogPost.Title"/>
     <Meta property="og:description" content="@BlogPost.Text.Take(100).ToString()"/>
-    <Meta property="og:image" content="@($"{navman.Uri}/pathtoanimage.png")"/>
+    <Meta property="og:image" content="@($"{navman.BaseUri}/pathtoanimage.png")"/>
     <Meta property="og:url" content="@navman.Uri"/>
     <Meta name="twitter:card" content="@BlogPost.Text.Take(100).ToString()"/>
 
