@@ -1,12 +1,6 @@
-﻿@*<Directives>*@
-@page "/"
-@using MyBlog.Data;
-@using MyBlog.Data.Models;
-@using MyBlog.Data.Interfaces;
+﻿@page "/"
 @inject IMyBlogApi api
-@*</Directives>*@
 
-@*<TheList>*@
 <button @onclick="AddSomePosts">Add some fake posts</button>
 <br />
 <br />
@@ -14,23 +8,19 @@
 <ul>
     @foreach (var p in posts)
     {
-        <li>@p.Title</li>
+        <li><a href="/Post/@p.Id">@p.Title</a></li>
     }
 </ul>
-@*</TheList>*@
+
 
 @code{
-    //<AddVariable>
     protected List<BlogPost> posts = new List<BlogPost>();
-    //</AddVariable>
 
-    //<LoadData>
     protected override async Task OnInitializedAsync()
     {
         posts = await api.GetBlogPostsAsync(10, 0);
         await base.OnInitializedAsync();
     }
-    //</LoadData>
     
     protected async Task AddSomePosts()
     {

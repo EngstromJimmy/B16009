@@ -1,0 +1,35 @@
+﻿@*<Page>*@
+@page "/post/{BlogPostId:int}"
+@*</Page>*@
+@*<InjectAPI>*@
+@inject IMyBlogApi api
+@*</InjectAPI>*@
+
+@if (BlogPost != null)
+{
+    @*<Name>*@
+    <h3>@BlogPost.Title</h3>
+    @*</Name>*@
+
+    @*<BlogText>*@
+    @((MarkupString)BlogPost.Text)
+    @*</BlogText>*@
+}
+@code {
+    @*<BlogPostId>*@
+    [Parameter]
+    public int BlogPostId { get; set; }
+    @*</BlogPostId>*@
+
+    @*<BlogPost>*@
+    public BlogPost BlogPost { get; set; }
+    @*</BlogPost>*@
+
+    @*<OnParametersSetAsync>*@
+    protected async override Task OnParametersSetAsync()
+    {
+        BlogPost=await api.GetBlogPostAsync(BlogPostId);
+        await base.OnParametersSetAsync();
+    }
+    @*</OnParametersSetAsync>*@
+}
