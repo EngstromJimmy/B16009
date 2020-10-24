@@ -13,7 +13,6 @@
 
 
 @code{
-    protected List<BlogPost> posts = new List<BlogPost>();
     @*<LoadPosts>*@
     public int totalBlogposts { get; set; }
     private async ValueTask<ItemsProviderResult<BlogPost>> LoadPosts(ItemsProviderRequest request)
@@ -23,9 +22,9 @@
             totalBlogposts = await api.GetBlogPostCountAsync();
         }
         var numblogposts = Math.Min(request.Count, totalBlogposts - request.StartIndex);
-        var employees = await api.GetBlogPostsAsync(numblogposts, request.StartIndex);
+        var posts = await api.GetBlogPostsAsync(numblogposts, request.StartIndex);
 
-        return new ItemsProviderResult<BlogPost>(employees, totalBlogposts);
+        return new ItemsProviderResult<BlogPost>(posts, totalBlogposts);
     }
     @*</LoadPosts>*@
 
