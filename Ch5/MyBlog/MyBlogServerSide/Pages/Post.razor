@@ -5,16 +5,13 @@
 @inject IMyBlogApi api
 @*</InjectAPI>*@
 
+@*<ShowingThePost>*@
 @if (BlogPost != null)
 {
-    @*<Name>*@
     <h3>@BlogPost.Title</h3>
-    @*</Name>*@
-
-    @*<BlogText>*@
     @((MarkupString)BlogPost.Text)
-    @*</BlogText>*@
 }
+@*</ShowingThePost>*@
 @code {
     @*<BlogPostId>*@
     [Parameter]
@@ -28,7 +25,7 @@
     @*<OnParametersSetAsync>*@
     protected async override Task OnParametersSetAsync()
     {
-        BlogPost=await api.GetBlogPostAsync(BlogPostId);
+        BlogPost = await api.GetBlogPostAsync(BlogPostId);
         await base.OnParametersSetAsync();
     }
     @*</OnParametersSetAsync>*@
