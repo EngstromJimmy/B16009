@@ -6,18 +6,19 @@
 <br />
 
 <ul>
-    <Virtualize ItemsProvider="LoadPosts" Context="p" ItemSize="200">
-        <li style="height:200px"><a href="/Post/@p.Id">@p.Title</a></li>
+    <Virtualize ItemsProvider="LoadPosts" Context="p">
+        <li><a href="/Post/@p.Id">@p.Title</a></li>
     </Virtualize>
 </ul>
 
 
 @code{
     protected List<BlogPost> posts = new List<BlogPost>();
+    @*<LoadPosts>*@
     public int totalBlogposts { get; set; }
     private async ValueTask<ItemsProviderResult<BlogPost>> LoadPosts(ItemsProviderRequest request)
     {
-        if(totalBlogposts==0)
+        if (totalBlogposts == 0)
         {
             totalBlogposts = await api.GetBlogPostCountAsync();
         }
@@ -26,6 +27,7 @@
 
         return new ItemsProviderResult<BlogPost>(employees, totalBlogposts);
     }
+    @*</LoadPosts>*@
 
     protected override async Task OnInitializedAsync()
     {
