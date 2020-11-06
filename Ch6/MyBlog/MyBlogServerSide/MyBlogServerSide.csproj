@@ -2,7 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+	  <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Components\BootstrapCssClassProvider.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="Nuget.config" />
