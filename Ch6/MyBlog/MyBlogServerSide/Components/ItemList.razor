@@ -1,4 +1,5 @@
-﻿@typeparam ItemType
+﻿@*<Markup>*@
+@typeparam ItemType
 @using System.Collections.Generic
 
 <h3>List</h3>
@@ -11,6 +12,7 @@
         </tr>
     </Virtualize>
 </table>
+@*</Markup>*@
 
 @code {
     @*<Code>*@
@@ -25,5 +27,5 @@
     public EventCallback<ItemType> DeleteEvent { get; set; }
     [Parameter]
     public EventCallback<ItemType> SelectEvent { get; set; }
-    @*<Events>*@
+    @*</Events>*@
 }
