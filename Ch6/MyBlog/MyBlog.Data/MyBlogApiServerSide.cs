@@ -98,7 +98,7 @@ namespace MyBlog.Data
             }
             else
             {
-                context.Attach(item);
+                context.Entry(item).State = EntityState.Modified;
             }
             await context.SaveChangesAsync();
             return item;
