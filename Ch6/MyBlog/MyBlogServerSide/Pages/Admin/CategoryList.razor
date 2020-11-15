@@ -1,35 +1,39 @@
-﻿@page "/Admin/Categories"
+﻿@*<Top>*@
+@page "/Admin/Categories"
 @using MyBlogServerSide.Components
 @inject IMyBlogApi api
-<h3>Tags</h3>
-
+<h3>Categories</h3>
+@*</Top>*@
+@*<Form>*@
 <EditForm OnValidSubmit="Save" Model="Item">
     <DataAnnotationsValidator />
     <CustomCssClassProvider ProviderType="BootstrapFieldCssClassProvider" />
-    <InputText @bind-Value="@Item.Name"/>
+    <InputText @bind-Value="@Item.Name" />
     <ValidationMessage For="@(()=>Item.Name)" />
     <button class="btn btn-success" type="submit">Save</button>
 </EditForm>
-
+@*</Form>*@
+@*<List>*@
 <ItemList Items="items" DeleteEvent="@Delete" SelectEvent="@Select" ItemType="Category">
     <ItemTemplate>
-        @{ 
+        @{
             var item = context as Category;
-            if(item!=null)
+            if (item != null)
             {
                 @item.Name;
             }
         }
     </ItemTemplate>
 </ItemList>
+@*</List>*@
 
+@*<Code>*@
 @code {
     private List<Category> items { get; set; } = new List<Category>();
     public Category Item { get; set; } = new Category();
 
     protected async override Task OnInitializedAsync()
     {
-
         items = await api.GetCategoriesAsync();
         await base.OnInitializedAsync();
     }
@@ -68,3 +72,4 @@
         return Task.CompletedTask;
     }
 }
+@*</Code>*@

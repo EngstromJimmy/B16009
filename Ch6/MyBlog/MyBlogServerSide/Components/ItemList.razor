@@ -4,7 +4,7 @@
 
 <h3>List</h3>
 <table>
-    <Virtualize Items="@Items" Context="item">
+    <Virtualize Items="Items" Context="item">
         <tr>
             <td><button class="btn btn-primary" @onclick="@(()=> { SelectEvent.InvokeAsync(item); })">Select</button></td>
             <td>@ItemTemplate(item)</td>
