@@ -1,28 +1,32 @@
-﻿@page "/Admin/Tags"
+﻿@*<Top>*@
+@page "/Admin/Tags"
 @using MyBlogServerSide.Components
 @inject IMyBlogApi api
 <h3>Tags</h3>
-
+@*</Top>*@
+@*<Form>*@
 <EditForm OnValidSubmit="Save" Model="Item">
     <DataAnnotationsValidator />
     <CustomCssClassProvider ProviderType="BootstrapFieldCssClassProvider" />
-    <InputText @bind-Value="@Item.Name"/>
+    <InputText @bind-Value="@Item.Name" />
     <ValidationMessage For="@(()=>Item.Name)" />
     <button class="btn btn-success" type="submit">Save</button>
 </EditForm>
-
+@*</Form>*@
+@*<List>*@
 <ItemList Items="items" DeleteEvent="@Delete" SelectEvent="@Select" ItemType="Tag">
     <ItemTemplate>
-        @{ 
+        @{
             var item = context as Tag;
             if(item!=null)
             {
-                @item.Name;
+            @item.Name;
             }
         }
     </ItemTemplate>
 </ItemList>
-
+@*</List>*@
+@*<Code>*@
 @code {
     private List<Tag> items { get; set; } = new List<Tag>();
     public Tag Item { get; set; } = new Tag();
@@ -68,3 +72,4 @@
         return Task.CompletedTask;
     }
 }
+@*</Code>*@
