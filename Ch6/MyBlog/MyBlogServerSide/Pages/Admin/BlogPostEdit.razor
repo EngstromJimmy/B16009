@@ -1,0 +1,65 @@
+﻿@page "/Admin/BlogPosts/new"
+@page "/Admin/BlogPosts/{Id:int}"
+@inject IMyBlogApi api
+@inject NavigationManager manager
+@using MyBlogServerSide.Components
+
+<EditForm Model="post" OnValidSubmit="SavePost">
+    <DataAnnotationsValidator />
+    <CustomCssClassProvider ProviderType="BootstrapFieldCssClassProvider" />
+    <InputText @bind-Value="post.Title"></InputText>
+    <InputDate @bind-Value="post.PublishDate"></InputDate>
+    <InputSelect @bind-Value="selectedCategory">
+        <option value="0" disabled>None selected</option>
+        @foreach (var category in categories)
+        {
+            <option value="@category.Id">@category.Name</option>
+        }
+    </InputSelect>
+    <InputTextArea @bind-Value="post.Text"></InputTextArea>
+    <button type="submit" class="btn btn-success">Save</button>
+</EditForm>
+
+@code{
+    [Parameter]
+    public int? Id { get; set; }
+
+    BlogPost post { get; set; } = new BlogPost();
+    List<Category>? categories { get; set; }
+    List<Tag>? tags { get; set; }
+    int selectedCategory = 0;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id != null)
+        {
+            post = await api.GetBlogPostAsync(Id.Value);
+            if (post.Category != null)
+            {
+                selectedCategory = post.Category.Id;
+            }
+
+        }
+
+        categories = await api.GetCategoriesAsync();
+        tags = await api.GetTagsAsync();
+        base.OnParametersSet();
+    }
+
+    public async Task SavePost()
+    {
+        if (selectedCategory != 0 && categories != null)
+        {
+            var category = categories.FirstOrDefault(c => c.Id == selectedCategory);
+            if (category != null)
+            {
+                post.Category = category;
+            }
+        }
+
+        await api.SaveBlogPostAsync(post);
+        manager.NavigateTo("/Admin/Blogposts");
+    }
+
+
+}

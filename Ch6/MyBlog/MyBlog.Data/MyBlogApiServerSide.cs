@@ -99,6 +99,21 @@ namespace MyBlog.Data
             else
             {
                 context.Entry(item).State = EntityState.Modified;
+                if(item is BlogPost)
+                {
+                    var post = item as BlogPost;
+                    if (post.Category != null)
+                    {
+                        context.Entry(post.Category).State = EntityState.Modified;
+                    }
+                    if (post.Tags.Count > 0)
+                    {
+                        foreach (var tag in post.Tags)
+                        {
+                            context.Entry(tag).State = EntityState.Modified;
+                        }
+                    }
+                }
             }
             await context.SaveChangesAsync();
             return item;
