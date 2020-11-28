@@ -1,9 +1,12 @@
-﻿@page "/Admin/BlogPosts/new"
+﻿@*<top>*@
+@page "/Admin/BlogPosts/new"
 @page "/Admin/BlogPosts/{Id:int}"
 @inject IMyBlogApi api
 @inject NavigationManager manager
 @using MyBlogServerSide.Components
-
+@using Markdig;
+@*</top>*@
+@*<form>*@
 <EditForm Model="post" OnValidSubmit="SavePost">
     <DataAnnotationsValidator />
     <CustomCssClassProvider ProviderType="BootstrapFieldCssClassProvider" />
@@ -16,19 +19,43 @@
             <option value="@category.Id">@category.Name</option>
         }
     </InputSelect>
-    <InputTextArea @bind-Value="post.Text"></InputTextArea>
+    <InputTextAreaOnInput @bind-Value="post.Text" @onkeyup="UpdateHTML"></InputTextAreaOnInput>
     <button type="submit" class="btn btn-success">Save</button>
 </EditForm>
+@*</form>*@
+
+@*<output>*@
+@((MarkupString)markDownAsHTML)
+@*</output>*@
 
 @code{
     [Parameter]
     public int? Id { get; set; }
-
     BlogPost post { get; set; } = new BlogPost();
     List<Category>? categories { get; set; }
     List<Tag>? tags { get; set; }
     int selectedCategory = 0;
+    string? markDownAsHTML { get; set; }
 
+    @*<Markdig>*@
+    MarkdownPipeline pipeline;
+
+    protected override Task OnInitializedAsync()
+    {
+        pipeline = new MarkdownPipelineBuilder()
+                 .UseEmojiAndSmiley()
+                 .Build();
+        return base.OnInitializedAsync();
+    }
+    @*<Markdig>*@
+
+
+    protected void UpdateHTML()
+    {
+        markDownAsHTML = Markdig.Markdown.ToHtml(post.Text, pipeline);
+    }
+
+    @*<loadandsave>*@
     protected override async Task OnParametersSetAsync()
     {
         if (Id != null)
@@ -38,6 +65,8 @@
             {
                 selectedCategory = post.Category.Id;
             }
+
+            UpdateHTML();
 
         }
 
@@ -60,6 +89,5 @@
         await api.SaveBlogPostAsync(post);
         manager.NavigateTo("/Admin/Blogposts");
     }
-
-
+    @*</loadandsave>*@
 }
