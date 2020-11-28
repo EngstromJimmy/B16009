@@ -29,6 +29,7 @@
 @*</output>*@
 
 @code{
+    @*<variables>*@
     [Parameter]
     public int? Id { get; set; }
     BlogPost post { get; set; } = new BlogPost();
@@ -36,7 +37,7 @@
     List<Tag>? tags { get; set; }
     int selectedCategory = 0;
     string? markDownAsHTML { get; set; }
-
+    @*</variables>*@
     @*<Markdig>*@
     MarkdownPipeline pipeline;
 
