@@ -38,7 +38,7 @@
     int selectedCategory = 0;
     string? markDownAsHTML { get; set; }
     @*</variables>*@
-    @*<Markdig>*@
+    @*<markdig>*@
     MarkdownPipeline pipeline;
 
     protected override Task OnInitializedAsync()
@@ -48,7 +48,7 @@
                  .Build();
         return base.OnInitializedAsync();
     }
-    @*<Markdig>*@
+    @*</markdig>*@
 
 
     protected void UpdateHTML()
