@@ -18,7 +18,7 @@ namespace MyBlogWebAssembly.Server.Controllers
         {
             this.api = api;
         }
-
+        //</Constructor>
         //<GetBlogPostsAsync>
         [HttpGet]
         [Route("BlogPosts")]
