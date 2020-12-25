@@ -9,6 +9,8 @@ using System.Net.Http;
 using MyBlog.Data.Models;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using MyBlog.Data.Extensions;
+using Newtonsoft.Json;
 //</using>
 namespace MyBlog.Data
 {
@@ -20,100 +22,128 @@ namespace MyBlog.Data
         {
             this.httpclient = httpclient;
         }
+        //</Constructor>
 
-        //<Blogpost>
+        //<BlogpostGet>
         public async Task<BlogPost> GetBlogPostAsync(int id)
         {
-            return await httpclient.GetFromJsonAsync<BlogPost>($"BlogPosts/{id}");
+            return await httpclient.GetFromJsonAsync<BlogPost>($"MyBlogAPI/BlogPosts/{id}");
         }
 
         public async Task<int> GetBlogPostCountAsync()
         {
-            return await httpclient.GetFromJsonAsync<int>("BlogPostsCount");
+            return await httpclient.GetFromJsonAsync<int>("MyBlogAPI/BlogPostsCount");
         }
 
         public async Task<List<BlogPost>> GetBlogPostsAsync(int numberofposts, int startindex)
         {
-            return await httpclient.GetFromJsonAsync<List<BlogPost>>($"BlogPosts?numberofposts={numberofposts}&startindex={startindex}");
+            return await httpclient.GetFromJsonAsync<List<BlogPost>>($"MyBlogAPI/BlogPosts?numberofposts={numberofposts}&startindex={startindex}");
         }
-
+        //</BlogpostGet>
+        //<BlogpostSaveDelete>
         public async Task<BlogPost> SaveBlogPostAsync(BlogPost item)
         {
             try
             {
-                var response= await httpclient.DeleteAsync<BlogPost>("BlogPosts",item);
+                var response= await httpclient.PutAsJsonAsync<BlogPost>("MyBlogAPI/BlogPosts",item);
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<BlogPost>(json);
             }
             catch (AccessTokenNotAvailableException exception)
             {
                 exception.Redirect();
             }
+            return null;
         }
 
         public async Task DeleteBlogPostAsync(BlogPost item)
         {
             try
             {
-                var response = await httpclient.PutAsJsonAsync<BlogPost>("BlogPosts", item);
+                await httpclient.DeleteAsJsonAsync<BlogPost>("MyBlogAPI/BlogPosts", item);
             }
             catch (AccessTokenNotAvailableException exception)
             {
                 exception.Redirect();
             }
         }
-        //</Blogpost>
+        //<BlogpostSaveDelete>
 
-
-
-
-
-
-
-
-        public Task DeleteCategoryAsync(Category item)
+        //<Categories>
+        public async Task<List<Category>> GetCategoriesAsync()
         {
-            throw new NotImplementedException();
+            return await httpclient.GetFromJsonAsync<List<Category>>($"MyBlogAPI/Category");
         }
 
-        public Task DeleteTagAsync(Tag item)
+        public async Task<Category> GetCategoryAsync(int id)
         {
-            throw new NotImplementedException();
+            return await httpclient.GetFromJsonAsync<Category>($"MyBlogAPI/Category/{id}");
         }
 
-        
-
-        public Task<List<Category>> GetCategoriesAsync()
+        public async Task DeleteCategoryAsync(Category item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await httpclient.DeleteAsJsonAsync<Category>("MyBlogAPI/Categories", item);
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+            }
+        }
+        public async Task<Category> SaveCategoryAsync(Category item)
+        {
+            try
+            {
+                var response = await httpclient.PutAsJsonAsync<Category>("MyBlogAPI/Categories", item);
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<Category>(json);
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+            }
+            return null;
+        }
+        //</Categories>
+
+        //<Tags>
+        public async Task<Tag> GetTagAsync(int id)
+        {
+            return await httpclient.GetFromJsonAsync<Tag>($"MyBlogAPI/Tags/{id}");
         }
 
-        public Task<Category> GetCategoryAsync(int id)
+        public async Task<List<Tag>> GetTagsAsync()
         {
-            throw new NotImplementedException();
+            return await httpclient.GetFromJsonAsync<List<Tag>>($"MyBlogAPI/Tags");
         }
 
-        public Task<Tag> GetTagAsync(int id)
+        public async Task DeleteTagAsync(Tag item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await httpclient.DeleteAsJsonAsync<Tag>("MyBlogAPI/Categories", item);
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+            }
         }
 
-        public Task<List<Tag>> GetTagsAsync()
+        public async Task<Tag> SaveTagAsync(Tag item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = await httpclient.PutAsJsonAsync<Tag>("MyBlogAPI/Tags", item);
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<Tag>(json);
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+            }
+            return null;
         }
-
-        
-
-        public Task<Category> SaveCategoryAsync(Category item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Tag> SaveTagAsync(Tag item)
-        {
-            throw new NotImplementedException();
-        }
-        //</Constructor>
-
-
+        //</Tags>
     }
 }
