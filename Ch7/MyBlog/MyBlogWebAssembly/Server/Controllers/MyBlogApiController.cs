@@ -101,29 +101,21 @@ namespace MyBlogWebAssembly.Server.Controllers
 
         //</Categories>
 
-        //<GetTagsAsync>
+        //<Tags>
         [HttpGet]
         [Route("Tags")]
         public async Task<List<Tag>> GetTagsAsync()
         {
             return await api.GetTagsAsync();
         }
-        //</GetTagsAsync>
 
-        //<GetTagAsync>
         [HttpGet]
         [Route("Tags/{id}")]
         public async Task<Tag> GetTagAsync(int id)
         {
             return await api.GetTagAsync(id);
         }
-        //</GetTagAsync>
 
-        
-
-        
-
-        //<SaveTagAsync>
         [Authorize]
         [HttpPut]
         [Route("Tags")]
@@ -131,9 +123,7 @@ namespace MyBlogWebAssembly.Server.Controllers
         {
             return await api.SaveTagAsync(item);
         }
-        //</SaveTagAsync>
 
-        //<DeleteTagAsync>
         [Authorize]
         [HttpDelete]
         [Route("Tags")]
@@ -141,7 +131,7 @@ namespace MyBlogWebAssembly.Server.Controllers
         {
             await api.DeleteTagAsync(item);
         }
-        //</DeleteTagAsync>
+        //</Tags>
 
 
 
