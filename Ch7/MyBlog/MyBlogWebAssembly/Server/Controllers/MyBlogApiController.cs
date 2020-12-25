@@ -36,9 +36,9 @@ namespace MyBlogWebAssembly.Server.Controllers
         //</GetBlogPostCountAsync>
 
         //<GetBlogPostAsync>
-        public Task<BlogPost> GetBlogPostAsync(int id)
+        public async Task<BlogPost> GetBlogPostAsync(int id)
         {
-            throw new NotImplementedException();
+            return await api.GetBlogPostAsync(id);
         }
         //</GetBlogPostAsync>
 
