@@ -28,68 +28,88 @@ namespace MyBlogWebAssembly.Server.Controllers
         }
         //</GetBlogPostsAsync>
 
-        public Task<int> GetBlogPostCountAsync()
+        //<GetBlogPostCountAsync>
+        public async Task<int> GetBlogPostCountAsync()
         {
-            throw new NotImplementedException();
+            return await api.GetBlogPostCountAsync();
         }
+        //</GetBlogPostCountAsync>
 
-
-
-        public Task<List<Category>> GetCategoriesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<Tag>> GetTagsAsync()
-        {
-            throw new NotImplementedException();
-        }
-
+        //<GetBlogPostAsync>
         public Task<BlogPost> GetBlogPostAsync(int id)
         {
             throw new NotImplementedException();
         }
+        //</GetBlogPostAsync>
 
+        //<GetCategoriesAsync>
+        public Task<List<Category>> GetCategoriesAsync()
+        {
+            throw new NotImplementedException();
+        }
+        //</GetCategoriesAsync>
+
+        //<GetTagsAsync>
+        public Task<List<Tag>> GetTagsAsync()
+        {
+            throw new NotImplementedException();
+        }
+        //</GetTagsAsync>
+
+        //<GetCategoryAsync>
         public Task<Category> GetCategoryAsync(int id)
         {
             throw new NotImplementedException();
         }
+        //</GetCategoryAsync>
 
+        //<GetTagAsync>
         public Task<Tag> GetTagAsync(int id)
         {
             throw new NotImplementedException();
         }
+        //</GetTagAsync>
 
+        //<SaveBlogPostAsync>
         public Task<BlogPost> SaveBlogPostAsync(BlogPost item)
         {
             throw new NotImplementedException();
         }
+        //</SaveBlogPostAsync>
 
+        //<SaveCategoryAsync>
         public Task<Category> SaveCategoryAsync(Category item)
         {
             throw new NotImplementedException();
         }
+        //</SaveCategoryAsync>
 
+        //<SaveTagAsync>
         public Task<Tag> SaveTagAsync(Tag item)
         {
             throw new NotImplementedException();
         }
+        //</SaveTagAsync>
 
+        //<DeleteBlogPostAsync>
         public Task DeleteBlogPostAsync(BlogPost item)
         {
             throw new NotImplementedException();
         }
+        //</DeleteBlogPostAsync>
 
+        //<DeleteCategoryAsync>
         public Task DeleteCategoryAsync(Category item)
         {
             throw new NotImplementedException();
         }
-
+        //</DeleteCategoryAsync>
+        //<DeleteTagAsync>
         public Task DeleteTagAsync(Tag item)
         {
             throw new NotImplementedException();
         }
-        
+        //</DeleteTagAsync>
 
 
 
