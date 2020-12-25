@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyBlog.Data.Interfaces;
 using MyBlog.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace MyBlogWebAssembly.Server.Controllers
@@ -29,6 +31,8 @@ namespace MyBlogWebAssembly.Server.Controllers
         //</GetBlogPostsAsync>
 
         //<GetBlogPostCountAsync>
+        [HttpGet]
+        [Route("BlogPostCount")]
         public async Task<int> GetBlogPostCountAsync()
         {
             return await api.GetBlogPostCountAsync();
@@ -36,6 +40,8 @@ namespace MyBlogWebAssembly.Server.Controllers
         //</GetBlogPostCountAsync>
 
         //<GetBlogPostAsync>
+        [HttpGet]
+        [Route("BlogPosts/{id}")]
         public async Task<BlogPost> GetBlogPostAsync(int id)
         {
             return await api.GetBlogPostAsync(id);
@@ -43,71 +49,98 @@ namespace MyBlogWebAssembly.Server.Controllers
         //</GetBlogPostAsync>
 
         //<GetCategoriesAsync>
-        public Task<List<Category>> GetCategoriesAsync()
+        [HttpGet]
+        [Route("Categories")]
+        public async Task<List<Category>> GetCategoriesAsync()
         {
-            throw new NotImplementedException();
+            return await api.GetCategoriesAsync();
         }
         //</GetCategoriesAsync>
 
-        //<GetTagsAsync>
-        public Task<List<Tag>> GetTagsAsync()
-        {
-            throw new NotImplementedException();
-        }
-        //</GetTagsAsync>
-
         //<GetCategoryAsync>
-        public Task<Category> GetCategoryAsync(int id)
+        [HttpGet]
+        [Route("BlogPosts/{id}")]
+        public async Task<Category> GetCategoryAsync(int id)
         {
-            throw new NotImplementedException();
+            return await api.GetCategoryAsync(id);
         }
         //</GetCategoryAsync>
 
-        //<GetTagAsync>
-        public Task<Tag> GetTagAsync(int id)
+        //<GetTagsAsync>
+        [HttpGet]
+        [Route("Tags")]
+        public async Task<List<Tag>> GetTagsAsync()
         {
-            throw new NotImplementedException();
+            return await api.GetTagsAsync();
+        }
+        //</GetTagsAsync>
+
+        //<GetTagAsync>
+        [HttpGet]
+        [Route("Tags/{id}")]
+        public async Task<Tag> GetTagAsync(int id)
+        {
+            return await api.GetTagAsync(id);
         }
         //</GetTagAsync>
 
         //<SaveBlogPostAsync>
-        public Task<BlogPost> SaveBlogPostAsync(BlogPost item)
+        [Authorize]
+        [HttpPut]
+        [Route("BlogPosts")]
+        public async Task<BlogPost> SaveBlogPostAsync([FromBody]BlogPost item)
         {
-            throw new NotImplementedException();
+            return await api.SaveBlogPostAsync(item);
         }
         //</SaveBlogPostAsync>
 
         //<SaveCategoryAsync>
-        public Task<Category> SaveCategoryAsync(Category item)
+        [Authorize]
+        [HttpPut]
+        [Route("Categories")]
+        public async Task<Category> SaveCategoryAsync([FromBody]Category item)
         {
-            throw new NotImplementedException();
+            return await api.SaveCategoryAsync(item);
         }
         //</SaveCategoryAsync>
 
         //<SaveTagAsync>
-        public Task<Tag> SaveTagAsync(Tag item)
+        [Authorize]
+        [HttpPut]
+        [Route("Tags")]
+        public async Task<Tag> SaveTagAsync([FromBody] Tag item)
         {
-            throw new NotImplementedException();
+            return await api.SaveTagAsync(item);
         }
         //</SaveTagAsync>
 
         //<DeleteBlogPostAsync>
-        public Task DeleteBlogPostAsync(BlogPost item)
+        [Authorize]
+        [HttpDelete]
+        [Route("BlogPosts")]
+        public async Task DeleteBlogPostAsync([FromBody] BlogPost item)
         {
-            throw new NotImplementedException();
+            await api.DeleteBlogPostAsync(item);
         }
         //</DeleteBlogPostAsync>
 
         //<DeleteCategoryAsync>
-        public Task DeleteCategoryAsync(Category item)
+        [Authorize]
+        [HttpDelete]
+        [Route("Categories")]
+        public async Task DeleteCategoryAsync([FromBody] Category item)
         {
-            throw new NotImplementedException();
+            await api.DeleteCategoryAsync(item);
         }
         //</DeleteCategoryAsync>
+        
         //<DeleteTagAsync>
-        public Task DeleteTagAsync(Tag item)
+        [Authorize]
+        [HttpDelete]
+        [Route("Tags")]
+        public async Task DeleteTagAsync([FromBody] Tag item)
         {
-            throw new NotImplementedException();
+            await api.DeleteTagAsync(item);
         }
         //</DeleteTagAsync>
 
