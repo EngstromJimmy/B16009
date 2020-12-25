@@ -48,23 +48,58 @@ namespace MyBlogWebAssembly.Server.Controllers
         }
         //</GetBlogPostAsync>
 
-        //<GetCategoriesAsync>
+        //<SaveBlogPostAsync>
+        [Authorize]
+        [HttpPut]
+        [Route("BlogPosts")]
+        public async Task<BlogPost> SaveBlogPostAsync([FromBody] BlogPost item)
+        {
+            return await api.SaveBlogPostAsync(item);
+        }
+        //</SaveBlogPostAsync>
+
+        //<DeleteBlogPostAsync>
+        [Authorize]
+        [HttpDelete]
+        [Route("BlogPosts")]
+        public async Task DeleteBlogPostAsync([FromBody] BlogPost item)
+        {
+            await api.DeleteBlogPostAsync(item);
+        }
+        //</DeleteBlogPostAsync>
+
+        //<Categories>
         [HttpGet]
         [Route("Categories")]
         public async Task<List<Category>> GetCategoriesAsync()
         {
             return await api.GetCategoriesAsync();
         }
-        //</GetCategoriesAsync>
 
-        //<GetCategoryAsync>
         [HttpGet]
-        [Route("BlogPosts/{id}")]
+        [Route("Categories/{id}")]
         public async Task<Category> GetCategoryAsync(int id)
         {
             return await api.GetCategoryAsync(id);
         }
-        //</GetCategoryAsync>
+
+        [Authorize]
+        [HttpPut]
+        [Route("Categories")]
+        public async Task<Category> SaveCategoryAsync([FromBody] Category item)
+        {
+            return await api.SaveCategoryAsync(item);
+        }
+
+        [Authorize]
+        [HttpDelete]
+        [Route("Categories")]
+        public async Task DeleteCategoryAsync([FromBody] Category item)
+        {
+            await api.DeleteCategoryAsync(item);
+        }
+
+        //</Categories>
 
         //<GetTagsAsync>
         [HttpGet]
@@ -84,25 +119,9 @@ namespace MyBlogWebAssembly.Server.Controllers
         }
         //</GetTagAsync>
 
-        //<SaveBlogPostAsync>
-        [Authorize]
-        [HttpPut]
-        [Route("BlogPosts")]
-        public async Task<BlogPost> SaveBlogPostAsync([FromBody]BlogPost item)
-        {
-            return await api.SaveBlogPostAsync(item);
-        }
-        //</SaveBlogPostAsync>
+        
 
-        //<SaveCategoryAsync>
-        [Authorize]
-        [HttpPut]
-        [Route("Categories")]
-        public async Task<Category> SaveCategoryAsync([FromBody]Category item)
-        {
-            return await api.SaveCategoryAsync(item);
-        }
-        //</SaveCategoryAsync>
+        
 
         //<SaveTagAsync>
         [Authorize]
@@ -114,26 +133,6 @@ namespace MyBlogWebAssembly.Server.Controllers
         }
         //</SaveTagAsync>
 
-        //<DeleteBlogPostAsync>
-        [Authorize]
-        [HttpDelete]
-        [Route("BlogPosts")]
-        public async Task DeleteBlogPostAsync([FromBody] BlogPost item)
-        {
-            await api.DeleteBlogPostAsync(item);
-        }
-        //</DeleteBlogPostAsync>
-
-        //<DeleteCategoryAsync>
-        [Authorize]
-        [HttpDelete]
-        [Route("Categories")]
-        public async Task DeleteCategoryAsync([FromBody] Category item)
-        {
-            await api.DeleteCategoryAsync(item);
-        }
-        //</DeleteCategoryAsync>
-        
         //<DeleteTagAsync>
         [Authorize]
         [HttpDelete]
