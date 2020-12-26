@@ -1,11 +1,17 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyBlog.Data;
 using MyBlog.Data.Interfaces;
+using MyBlog.Data.Models;
+//<authusing>
+using MyBlogServerSide.Authentication;
+//</authusing>
 using MyBlogServerSide.Data;
 
 
@@ -35,6 +41,12 @@ namespace MyBlogServerSide
             services.AddDbContextFactory<MyBlogDbContext>(opt => opt.UseSqlite($"Data Source=../MyBlog.db"));
             services.AddScoped<IMyBlogApi, MyBlogApiServerSide>();
             //</AddMyBlogDataServices>
+            //<Authentication>
+            services.AddDbContext<MyBlogDbContext>(opt => opt.UseSqlite($"Data Source=../MyBlog.db"));
+            services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddEntityFrameworkStores<MyBlogDbContext>();
+            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<AppUser>>();
+            //</Authentication>
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +70,9 @@ namespace MyBlogServerSide
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

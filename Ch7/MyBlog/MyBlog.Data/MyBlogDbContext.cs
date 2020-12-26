@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿//<namespace>
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+//</namespace>
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using MyBlog.Data.Models;
 
 namespace MyBlog.Data
 {
-    public class MyBlogDbContext : DbContext
+    public class MyBlogDbContext : IdentityDbContext<AppUser>
     {
         public MyBlogDbContext(DbContextOptions<MyBlogDbContext> context) : base(context)
         {
