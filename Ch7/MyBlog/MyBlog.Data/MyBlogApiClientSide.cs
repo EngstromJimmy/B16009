@@ -67,7 +67,7 @@ namespace MyBlog.Data
                 exception.Redirect();
             }
         }
-        //<BlogpostSaveDelete>
+        //</BlogpostSaveDelete>
 
         //<Categories>
         public async Task<List<Category>> GetCategoriesAsync()
