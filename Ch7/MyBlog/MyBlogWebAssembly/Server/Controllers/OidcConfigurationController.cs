@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace AuthWASM.Server.Controllers
+namespace MyBlogWebAssembly.Server.Controllers
 {
     public class OidcConfigurationController : Controller
     {
