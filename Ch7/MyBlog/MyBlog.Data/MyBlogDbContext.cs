@@ -1,18 +1,17 @@
-﻿//<namespace>
+﻿using IdentityServer4.EntityFramework.Options;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-//</namespace>
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Options;
 using MyBlog.Data.Models;
 
 namespace MyBlog.Data
 {
-    public class MyBlogDbContext : IdentityDbContext<AppUser>
+    public class MyBlogDbContext : ApiAuthorizationDbContext<AppUser>
     {
-        public MyBlogDbContext(DbContextOptions<MyBlogDbContext> context) : base(context)
-        {
-
-        }
+        public MyBlogDbContext(DbContextOptions options) : base(options, new OperationalStoreOptionsMigrations())
+        { }
 
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -29,4 +28,18 @@ namespace MyBlog.Data
             return new MyBlogDbContext(optionsBuilder.Options);
         }
     }
+
+    //<OperationalStoreOptionsMigrations>
+    public class OperationalStoreOptionsMigrations : IOptions<OperationalStoreOptions>
+    {
+        public OperationalStoreOptions Value => new OperationalStoreOptions()
+        {
+            DeviceFlowCodes = new TableConfiguration("DeviceCodes"),
+            EnableTokenCleanup = false,
+            PersistedGrants = new TableConfiguration("PersistedGrants"),
+            TokenCleanupBatchSize = 100,
+            TokenCleanupInterval = 3600,
+        };
+    }
+    //</OperationalStoreOptionsMigrations>
 }

@@ -13,8 +13,10 @@ using MyBlog.Data.Models;
 using MyBlogServerSide.Authentication;
 //</authusing>
 using MyBlogServerSide.Data;
-
-
+//<IdentityServerUsing>
+using IdentityServer4.EntityFramework.Options;
+using Microsoft.Extensions.Options;
+//</IdentityServerUsing>
 namespace MyBlogServerSide
 {
 
@@ -54,7 +56,7 @@ namespace MyBlogServerSide
         //<ConfigureMigrate>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbContextFactory<MyBlogDbContext> factory)
         {
-            factory.CreateDbContext().Database.Migrate();
+            //factory.CreateDbContext().Database.Migrate();
         //</ConfigureMigrate>
             if (env.IsDevelopment())
             {
