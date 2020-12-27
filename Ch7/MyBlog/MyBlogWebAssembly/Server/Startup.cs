@@ -11,6 +11,10 @@ using MyBlog.Data;
 using MyBlog.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 //</using>
+//<IdentityUsing>
+using MyBlog.Data.Models;
+using Microsoft.AspNetCore.Authentication;
+//</IdentityUsing>
 namespace MyBlogWebAssembly.Server
 {
     public class Startup
@@ -26,6 +30,18 @@ namespace MyBlogWebAssembly.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //<Identity>
+            services.AddDbContext<MyBlogDbContext>(opt => opt.UseSqlite($"Data Source=../../MyBlog.db"));
+
+            services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<MyBlogDbContext>();
+
+            services.AddIdentityServer()
+                .AddApiAuthorization<AppUser, MyBlogDbContext>();
+
+            services.AddAuthentication()
+                .AddIdentityServerJwt();
+            //</Identity>
 
             services.AddControllersWithViews();
             services.AddRazorPages();
