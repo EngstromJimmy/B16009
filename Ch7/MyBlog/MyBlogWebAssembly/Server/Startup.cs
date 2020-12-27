@@ -73,7 +73,11 @@ namespace MyBlogWebAssembly.Server
           
 
             app.UseRouting();
-
+            //<IdentityApp>
+            app.UseIdentityServer();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            //</IdentityApp>
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
