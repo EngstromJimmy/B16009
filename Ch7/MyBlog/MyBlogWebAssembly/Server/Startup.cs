@@ -30,6 +30,11 @@ namespace MyBlogWebAssembly.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //<AddMyBlogDataServices>
+            services.AddDbContextFactory<MyBlogDbContext>(opt => opt.UseSqlite($"Data Source=../../MyBlog.db"));
+            services.AddScoped<IMyBlogApi, MyBlogApiServerSide>();
+            //</AddMyBlogDataServices>
+
             //<Identity>
             services.AddDbContext<MyBlogDbContext>(opt => opt.UseSqlite($"Data Source=../../MyBlog.db"));
 
@@ -45,10 +50,7 @@ namespace MyBlogWebAssembly.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-            //<AddMyBlogDataServices>
-            services.AddDbContextFactory<MyBlogDbContext>(opt => opt.UseSqlite($"Data Source=../../MyBlog.db"));
-            services.AddScoped<IMyBlogApi, MyBlogApiServerSide>();
-            //</AddMyBlogDataServices>
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
