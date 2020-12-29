@@ -24,7 +24,8 @@ namespace MyBlogWebAssembly.Client
                 .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
             builder.Services.AddHttpClient("Public", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
-            builder.Services.AddApiAuthorization();                
+            builder.Services.AddApiAuthorization()
+                .AddAccountClaimsPrincipalFactory<RoleAccountClaimsPrincipalFactory>();
             //</Identity>
 
             await builder.Build().RunAsync();
