@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace MyBlogServerSide.Authentication
+namespace MyBlogWebAssembly.Client.Authentication
 {
     public class RoleAccountClaimsPrincipalFactory : AccountClaimsPrincipalFactory<RemoteUserAccount>
     {
