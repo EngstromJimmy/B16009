@@ -28,8 +28,7 @@ namespace MyBlogWebAssembly.Client
                 
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("AuthWASM.ServerAPI"));
 
-            builder.Services.AddApiAuthorization()
-                .AddAccountClaimsPrincipalFactory<RoleAccountClaimsPrincipalFactory>();
+            builder.Services.AddApiAuthorization();
             //</Identity>
 
             await builder.Build().RunAsync();
