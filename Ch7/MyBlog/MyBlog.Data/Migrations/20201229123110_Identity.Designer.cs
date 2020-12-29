@@ -9,7 +9,7 @@ using MyBlog.Data;
 namespace MyBlog.Data.Migrations
 {
     [DbContext(typeof(MyBlogDbContext))]
-    [Migration("20201227161645_Identity")]
+    [Migration("20201229123110_Identity")]
     partial class Identity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

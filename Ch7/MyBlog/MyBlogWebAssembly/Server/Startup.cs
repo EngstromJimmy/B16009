@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 //<IdentityUsing>
 using MyBlog.Data.Models;
 using Microsoft.AspNetCore.Authentication;
+using System.IdentityModel.Tokens.Jwt;
 //</IdentityUsing>
 namespace MyBlogWebAssembly.Server
 {
@@ -42,10 +43,19 @@ namespace MyBlogWebAssembly.Server
                 .AddEntityFrameworkStores<MyBlogDbContext>();
 
             services.AddIdentityServer()
-                .AddApiAuthorization<AppUser, MyBlogDbContext>();
+                .AddApiAuthorization<AppUser, MyBlogDbContext>(options =>
+                {
+                    options.IdentityResources["openid"].UserClaims.Add("name");
+                    options.ApiResources.Single().UserClaims.Add("name");
+                    options.IdentityResources["openid"].UserClaims.Add("role");
+                    options.ApiResources.Single().UserClaims.Add("role");
+                });
+                JwtSecurityTokenHandler.DefaultInboundClaimFilter.Remove("role");
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+
+            services.AddDatabaseDeveloperPageExceptionFilter();
             //</Identity>
 
             services.AddControllersWithViews();
@@ -58,6 +68,7 @@ namespace MyBlogWebAssembly.Server
         {
             if (env.IsDevelopment())
             {
+                app.UseMigrationsEndPoint();
                 app.UseDeveloperExceptionPage();
                 app.UseWebAssemblyDebugging();
             }

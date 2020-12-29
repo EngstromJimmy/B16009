@@ -16,6 +16,13 @@ namespace MyBlog.Data
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Tag> Tags { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+
     }
 
     public class MyBlogDbContextFactory : IDesignTimeDbContextFactory<MyBlogDbContext>
@@ -23,7 +30,7 @@ namespace MyBlog.Data
         public MyBlogDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<MyBlogDbContext>();
-            optionsBuilder.UseSqlite("Data Source = test.db");
+            optionsBuilder.UseSqlite("Data Source = ../MyBlog.db");
 
             return new MyBlogDbContext(optionsBuilder.Options);
         }

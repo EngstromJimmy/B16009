@@ -36,6 +36,7 @@ namespace MyBlogServerSide
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
@@ -60,7 +61,9 @@ namespace MyBlogServerSide
         //</ConfigureMigrate>
             if (env.IsDevelopment())
             {
+                app.UseMigrationsEndPoint();
                 app.UseDeveloperExceptionPage();
+                
             }
             else
             {
