@@ -12,7 +12,6 @@ using MyBlogWebAssembly.Client.Authentication;
 
 namespace MyBlogWebAssembly.Client
 {    
-    //<WASMProgram>
     public class Program
     {
         public static async Task Main(string[] args)
@@ -25,15 +24,10 @@ namespace MyBlogWebAssembly.Client
                 .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
             builder.Services.AddHttpClient("Public", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
-                
-            builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("AuthWASM.ServerAPI"));
-
-            builder.Services.AddApiAuthorization()
-                .AddAccountClaimsPrincipalFactory<RoleAccountClaimsPrincipalFactory>();
+            builder.Services.AddApiAuthorization();                
             //</Identity>
 
             await builder.Build().RunAsync();
         }
     }
-    //</WASMProgram>
 }
