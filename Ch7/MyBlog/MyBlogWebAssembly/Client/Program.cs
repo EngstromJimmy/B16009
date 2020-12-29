@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using MyBlogWebAssembly.Client.Authentication;
 
 namespace MyBlogWebAssembly.Client
 {    
@@ -25,7 +26,8 @@ namespace MyBlogWebAssembly.Client
 
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("AuthWASM.ServerAPI"));
 
-            builder.Services.AddApiAuthorization();
+            builder.Services.AddApiAuthorization()
+                .AddAccountClaimsPrincipalFactory<RoleAccountClaimsPrincipalFactory>();
             //</Identity>
 
             await builder.Build().RunAsync();

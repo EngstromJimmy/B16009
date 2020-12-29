@@ -16,6 +16,7 @@ using MyBlog.Data.Models;
 using Microsoft.AspNetCore.Authentication;
 using System.IdentityModel.Tokens.Jwt;
 //</IdentityUsing>
+using Microsoft.AspNetCore.Identity;
 namespace MyBlogWebAssembly.Server
 {
     public class Startup
@@ -40,6 +41,7 @@ namespace MyBlogWebAssembly.Server
             services.AddDbContext<MyBlogDbContext>(opt => opt.UseSqlite($"Data Source=../../MyBlog.db"));
 
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MyBlogDbContext>();
 
             services.AddIdentityServer()

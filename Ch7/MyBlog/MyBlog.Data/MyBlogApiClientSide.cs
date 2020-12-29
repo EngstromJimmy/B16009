@@ -17,26 +17,30 @@ namespace MyBlog.Data
     public class MyBlogApiClientSide:IMyBlogApi
     {
         //<Constructor>
-        HttpClient httpclient;
-        public MyBlogApiClientSide(HttpClient httpclient)
+        IHttpClientFactory factory;
+
+        public MyBlogApiClientSide(IHttpClientFactory factory)
         {
-            this.httpclient = httpclient;
+            this.factory = factory;
         }
         //</Constructor>
 
         //<BlogpostGet>
         public async Task<BlogPost> GetBlogPostAsync(int id)
         {
+            var httpclient = factory.CreateClient("Public");
             return await httpclient.GetFromJsonAsync<BlogPost>($"MyBlogAPI/BlogPosts/{id}");
         }
 
         public async Task<int> GetBlogPostCountAsync()
         {
+            var httpclient = factory.CreateClient("Public");
             return await httpclient.GetFromJsonAsync<int>("MyBlogAPI/BlogPostsCount");
         }
 
         public async Task<List<BlogPost>> GetBlogPostsAsync(int numberofposts, int startindex)
         {
+            var httpclient = factory.CreateClient("Public");
             return await httpclient.GetFromJsonAsync<List<BlogPost>>($"MyBlogAPI/BlogPosts?numberofposts={numberofposts}&startindex={startindex}");
         }
         //</BlogpostGet>
@@ -45,6 +49,7 @@ namespace MyBlog.Data
         {
             try
             {
+                var httpclient = factory.CreateClient("Authenticated");
                 var response= await httpclient.PutAsJsonAsync<BlogPost>("MyBlogAPI/BlogPosts",item);
                 var json = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<BlogPost>(json);
@@ -60,6 +65,7 @@ namespace MyBlog.Data
         {
             try
             {
+                var httpclient = factory.CreateClient("Authenticated");
                 await httpclient.DeleteAsJsonAsync<BlogPost>("MyBlogAPI/BlogPosts", item);
             }
             catch (AccessTokenNotAvailableException exception)
@@ -72,11 +78,13 @@ namespace MyBlog.Data
         //<Categories>
         public async Task<List<Category>> GetCategoriesAsync()
         {
+            var httpclient = factory.CreateClient("Public");
             return await httpclient.GetFromJsonAsync<List<Category>>($"MyBlogAPI/Category");
         }
 
         public async Task<Category> GetCategoryAsync(int id)
         {
+            var httpclient = factory.CreateClient("Public");
             return await httpclient.GetFromJsonAsync<Category>($"MyBlogAPI/Category/{id}");
         }
 
@@ -84,6 +92,7 @@ namespace MyBlog.Data
         {
             try
             {
+                var httpclient = factory.CreateClient("Authenticated");
                 await httpclient.DeleteAsJsonAsync<Category>("MyBlogAPI/Categories", item);
             }
             catch (AccessTokenNotAvailableException exception)
@@ -95,6 +104,7 @@ namespace MyBlog.Data
         {
             try
             {
+                var httpclient = factory.CreateClient("Authenticated");
                 var response = await httpclient.PutAsJsonAsync<Category>("MyBlogAPI/Categories", item);
                 var json = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<Category>(json);
@@ -110,11 +120,13 @@ namespace MyBlog.Data
         //<Tags>
         public async Task<Tag> GetTagAsync(int id)
         {
+            var httpclient = factory.CreateClient("Public");
             return await httpclient.GetFromJsonAsync<Tag>($"MyBlogAPI/Tags/{id}");
         }
 
         public async Task<List<Tag>> GetTagsAsync()
         {
+            var httpclient = factory.CreateClient("Public");
             return await httpclient.GetFromJsonAsync<List<Tag>>($"MyBlogAPI/Tags");
         }
 
@@ -122,6 +134,7 @@ namespace MyBlog.Data
         {
             try
             {
+                var httpclient = factory.CreateClient("Authenticated");
                 await httpclient.DeleteAsJsonAsync<Tag>("MyBlogAPI/Categories", item);
             }
             catch (AccessTokenNotAvailableException exception)
@@ -134,6 +147,7 @@ namespace MyBlog.Data
         {
             try
             {
+                var httpclient = factory.CreateClient("Authenticated");
                 var response = await httpclient.PutAsJsonAsync<Tag>("MyBlogAPI/Tags", item);
                 var json = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<Tag>(json);
