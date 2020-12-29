@@ -21,9 +21,11 @@ namespace MyBlogWebAssembly.Client
             builder.RootComponents.Add<App>("#app");
 
             //<Identity>
-            builder.Services.AddHttpClient("AuthWASM.ServerAPI", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
+            builder.Services.AddHttpClient("Authenticated", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
                 .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
+            builder.Services.AddHttpClient("Public", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+                
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("AuthWASM.ServerAPI"));
 
             builder.Services.AddApiAuthorization()
