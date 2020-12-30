@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 //<using>
 using MyBlog.Data.Interfaces;
@@ -35,7 +32,7 @@ namespace MyBlog.Data
         public async Task<int> GetBlogPostCountAsync()
         {
             var httpclient = factory.CreateClient("Public");
-            return await httpclient.GetFromJsonAsync<int>("MyBlogAPI/BlogPostsCount");
+            return await httpclient.GetFromJsonAsync<int>("MyBlogAPI/BlogPostCount");
         }
 
         public async Task<List<BlogPost>> GetBlogPostsAsync(int numberofposts, int startindex)
@@ -79,13 +76,13 @@ namespace MyBlog.Data
         public async Task<List<Category>> GetCategoriesAsync()
         {
             var httpclient = factory.CreateClient("Public");
-            return await httpclient.GetFromJsonAsync<List<Category>>($"MyBlogAPI/Category");
+            return await httpclient.GetFromJsonAsync<List<Category>>($"MyBlogAPI/Categories");
         }
 
         public async Task<Category> GetCategoryAsync(int id)
         {
             var httpclient = factory.CreateClient("Public");
-            return await httpclient.GetFromJsonAsync<Category>($"MyBlogAPI/Category/{id}");
+            return await httpclient.GetFromJsonAsync<Category>($"MyBlogAPI/Categories/{id}");
         }
 
         public async Task DeleteCategoryAsync(Category item)
