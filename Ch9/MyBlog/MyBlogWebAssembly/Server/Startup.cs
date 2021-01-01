@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Authentication;
 using System.IdentityModel.Tokens.Jwt;
 //</IdentityUsing>
 using Microsoft.AspNetCore.Identity;
+using System.Text.Json.Serialization;
+
 namespace MyBlogWebAssembly.Server
 {
     public class Startup
@@ -60,7 +62,11 @@ namespace MyBlogWebAssembly.Server
             services.AddDatabaseDeveloperPageExceptionFilter();
             //</Identity>
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            });
             services.AddRazorPages();
             
         }

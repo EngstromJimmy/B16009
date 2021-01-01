@@ -45,7 +45,7 @@ namespace MyBlogWebAssembly.Server.Controllers
         public async Task<BlogPost> GetBlogPostAsync(int id)
         {
             return await api.GetBlogPostAsync(id);
-        }
+         }
         //</GetBlogPostAsync>
 
         //<SaveBlogPostAsync>

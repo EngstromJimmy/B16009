@@ -16,6 +16,12 @@ namespace MyBlog.Data
         //<Constructor>
         IHttpClientFactory factory;
 
+        System.Text.Json.JsonSerializerOptions jsonoptions=new System.Text.Json.JsonSerializerOptions
+        {
+            ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve,
+            PropertyNamingPolicy = null
+        };
+
         public MyBlogApiClientSide(IHttpClientFactory factory)
         {
             this.factory = factory;
@@ -26,19 +32,19 @@ namespace MyBlog.Data
         public async Task<BlogPost> GetBlogPostAsync(int id)
         {
             var httpclient = factory.CreateClient("Public");
-            return await httpclient.GetFromJsonAsync<BlogPost>($"MyBlogAPI/BlogPosts/{id}");
+            return await httpclient.GetFromJsonAsync<BlogPost>($"MyBlogAPI/BlogPosts/{id}", jsonoptions);
         }
 
         public async Task<int> GetBlogPostCountAsync()
         {
             var httpclient = factory.CreateClient("Public");
-            return await httpclient.GetFromJsonAsync<int>("MyBlogAPI/BlogPostCount");
+            return await httpclient.GetFromJsonAsync<int>("MyBlogAPI/BlogPostCount", jsonoptions);
         }
 
         public async Task<List<BlogPost>> GetBlogPostsAsync(int numberofposts, int startindex)
         {
             var httpclient = factory.CreateClient("Public");
-            return await httpclient.GetFromJsonAsync<List<BlogPost>>($"MyBlogAPI/BlogPosts?numberofposts={numberofposts}&startindex={startindex}");
+            return await httpclient.GetFromJsonAsync<List<BlogPost>>($"MyBlogAPI/BlogPosts?numberofposts={numberofposts}&startindex={startindex}", jsonoptions);
         }
         //</BlogpostGet>
         //<BlogpostSaveDelete>
@@ -76,13 +82,13 @@ namespace MyBlog.Data
         public async Task<List<Category>> GetCategoriesAsync()
         {
             var httpclient = factory.CreateClient("Public");
-            return await httpclient.GetFromJsonAsync<List<Category>>($"MyBlogAPI/Categories");
+            return await httpclient.GetFromJsonAsync<List<Category>>($"MyBlogAPI/Categories", jsonoptions);
         }
 
         public async Task<Category> GetCategoryAsync(int id)
         {
             var httpclient = factory.CreateClient("Public");
-            return await httpclient.GetFromJsonAsync<Category>($"MyBlogAPI/Categories/{id}");
+            return await httpclient.GetFromJsonAsync<Category>($"MyBlogAPI/Categories/{id}", jsonoptions);
         }
 
         public async Task DeleteCategoryAsync(Category item)
@@ -118,13 +124,13 @@ namespace MyBlog.Data
         public async Task<Tag> GetTagAsync(int id)
         {
             var httpclient = factory.CreateClient("Public");
-            return await httpclient.GetFromJsonAsync<Tag>($"MyBlogAPI/Tags/{id}");
+            return await httpclient.GetFromJsonAsync<Tag>($"MyBlogAPI/Tags/{id}", jsonoptions);
         }
 
         public async Task<List<Tag>> GetTagsAsync()
         {
             var httpclient = factory.CreateClient("Public");
-            return await httpclient.GetFromJsonAsync<List<Tag>>($"MyBlogAPI/Tags");
+            return await httpclient.GetFromJsonAsync<List<Tag>>($"MyBlogAPI/Tags", jsonoptions);
         }
 
         public async Task DeleteTagAsync(Tag item)
