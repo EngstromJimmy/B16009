@@ -7,7 +7,7 @@ using MyBlog.Data.Models;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using MyBlog.Data.Extensions;
-using Newtonsoft.Json;
+using System.Text.Json;
 //</using>
 namespace MyBlog.Data
 {
@@ -55,7 +55,7 @@ namespace MyBlog.Data
                 var httpclient = factory.CreateClient("Authenticated");
                 var response= await httpclient.PutAsJsonAsync<BlogPost>("MyBlogAPI/BlogPosts",item);
                 var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<BlogPost>(json);
+                return JsonSerializer.Deserialize<BlogPost>(json);
             }
             catch (AccessTokenNotAvailableException exception)
             {
@@ -110,7 +110,7 @@ namespace MyBlog.Data
                 var httpclient = factory.CreateClient("Authenticated");
                 var response = await httpclient.PutAsJsonAsync<Category>("MyBlogAPI/Categories", item);
                 var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<Category>(json);
+                return JsonSerializer.Deserialize<Category>(json);
             }
             catch (AccessTokenNotAvailableException exception)
             {
@@ -153,7 +153,7 @@ namespace MyBlog.Data
                 var httpclient = factory.CreateClient("Authenticated");
                 var response = await httpclient.PutAsJsonAsync<Tag>("MyBlogAPI/Tags", item);
                 var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<Tag>(json);
+                return JsonSerializer.Deserialize<Tag>(json);
             }
             catch (AccessTokenNotAvailableException exception)
             {

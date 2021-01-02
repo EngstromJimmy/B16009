@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog.Shared", "MyBlog.Sha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog.Data.Shared", "MyBlog.Data.Shared\MyBlog.Data.Shared.csproj", "{67D52F49-E61E-433E-8402-A28F52648997}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pokopk", "pokopk\pokopk.csproj", "{FC052ED5-0165-41CC-A0F1-28826AA2F75B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +51,6 @@ Global
 		{67D52F49-E61E-433E-8402-A28F52648997}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67D52F49-E61E-433E-8402-A28F52648997}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67D52F49-E61E-433E-8402-A28F52648997}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC052ED5-0165-41CC-A0F1-28826AA2F75B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC052ED5-0165-41CC-A0F1-28826AA2F75B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC052ED5-0165-41CC-A0F1-28826AA2F75B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC052ED5-0165-41CC-A0F1-28826AA2F75B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
