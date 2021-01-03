@@ -2,12 +2,24 @@
 $input-color:#444;
 @import "../Bootstrap/scss/bootstrap";
 @import "../Bootswatch/Dist/Darkly/_bootswatch";
+@import "./bootstrap-icons-1.2.2/font/bootstrap-icons";
 
 //<Styles>
 .content {
     padding-top: 1.1rem;
 }
 
+.navbar-brand
+{
+    margin-left:30px;
+}
+
+.bi
+{
+    margin-right:5px;
+    margin-bottom:5px;
+}
+  
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

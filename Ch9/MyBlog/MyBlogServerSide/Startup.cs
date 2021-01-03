@@ -47,6 +47,7 @@ namespace MyBlogServerSide
             //<Authentication>
             services.AddDbContext<MyBlogDbContext>(opt => opt.UseSqlite($"Data Source=../MyBlog.db"));
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<MyBlogDbContext>();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<AppUser>>();
             //</Authentication>
