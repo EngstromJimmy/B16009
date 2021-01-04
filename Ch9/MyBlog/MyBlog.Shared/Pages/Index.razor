@@ -6,7 +6,7 @@
 @*<Post>*@
     <article>
         <h2>@p.Title</h2>
-        @((MarkupString)Markdig.Markdown.ToHtml(p.Text, pipeline))
+        @((MarkupString)GetFirstParagraph(Markdig.Markdown.ToHtml(p.Text, pipeline)))
         <br />
         <a href="/Post/@p.Id">Read more</a>
     </article>
@@ -14,6 +14,23 @@
 </Virtualize>
 
 @code{
+@*<FirstParagraph>*@
+public string GetFirstParagraph(string html)
+{
+    var m = System.Text.RegularExpressions.Regex.Matches(html, @"<p>(.*?)</p>",System.Text.RegularExpressions.RegexOptions.Singleline);
+    if (m.Count>0)
+    {
+        return m[0].Groups[1].Value;
+    }
+    else
+    {
+        return "";
+    }
+}
+@*</FirstParagraph>*@
+
+
+
 @*<OnInitializedAsync>*@
 MarkdownPipeline pipeline;
 
