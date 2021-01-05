@@ -1,3 +1,3 @@
-﻿export function showPrompt(message) {
-    return prompt(message);
+﻿export function showConfirm(message) {
+    return confirm(message);
 } 
