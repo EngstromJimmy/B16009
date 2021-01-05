@@ -17,6 +17,7 @@ namespace pokopk
 
         public ExampleJsInterop(IJSRuntime jsRuntime)
         {
+
             moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
                "import", "./_content/pokopk/exampleJsInterop.js").AsTask());
         }
