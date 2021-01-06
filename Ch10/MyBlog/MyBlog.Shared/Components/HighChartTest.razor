@@ -1,0 +1,25 @@
+﻿@page "/HighChartTest"
+@using MyBlog.Shared.Components
+<HighChart Json="@chartjson">
+
+</HighChart>
+
+@code {
+    string chartjson = @" {
+    chart: {
+        type: 'pie'
+    },
+    series: [{
+        colorByPoint: true,
+        data: [{
+            name: 'Does not look like Pacman',
+            color:'black',
+            y: 20,
+        }, {
+            name: 'Looks like Pacman',
+            color:'yellow',
+            y: 80
+        }]
+    }]
+}";
+}

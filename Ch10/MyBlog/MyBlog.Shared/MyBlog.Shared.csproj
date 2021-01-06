@@ -6,6 +6,7 @@
 
 	<ItemGroup>
 	  <Content Remove="compilerconfig.json" />
+	  <Content Remove="wwwroot\HighChart.razor.js" />
 	</ItemGroup>
 	
 	<ItemGroup>
@@ -1222,6 +1223,7 @@
 	  <None Include="wwwroot\bootstrap-icons-1.2.2\youtube.svg" />
 	  <None Include="wwwroot\bootstrap-icons-1.2.2\zoom-in.svg" />
 	  <None Include="wwwroot\bootstrap-icons-1.2.2\zoom-out.svg" />
+	  <None Include="wwwroot\HighChart.razor.js" />
 	</ItemGroup>
 
 
