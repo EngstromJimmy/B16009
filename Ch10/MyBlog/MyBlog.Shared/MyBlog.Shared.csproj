@@ -7,7 +7,11 @@
 	<ItemGroup>
 	  <Content Remove="compilerconfig.json" />
 	</ItemGroup>
-
+	
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.76" />
+	</ItemGroup>
+	
 	<ItemGroup>
 	  <None Include="compilerconfig.json" />
 	  <None Include="wwwroot\bootstrap-icons-1.2.2\alarm-fill.svg" />
@@ -1234,6 +1238,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyBlog.Data.Shared\MyBlog.Data.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\ItemList.razor.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\JSInterop\" />
   </ItemGroup>
   
 

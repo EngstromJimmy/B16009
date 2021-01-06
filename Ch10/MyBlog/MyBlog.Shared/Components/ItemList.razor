@@ -34,7 +34,7 @@
     IJSObjectReference jsmodule;
     private async Task<bool> ShouldDelete()
     {
-        jsmodule = await jsRuntime.InvokeAsync<IJSObjectReference>("import", "./ItemList.razor.js");
+        jsmodule = await jsRuntime.InvokeAsync<IJSObjectReference>("import", "/_content/MyBlog.Shared/ItemList.razor.js");
         return await jsmodule.InvokeAsync<bool>("showConfirm", "Are you sure?");
     }
     //</ShouldDelete>

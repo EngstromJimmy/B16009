@@ -1,0 +1,13 @@
+﻿@page "/interop"
+@inject IJSRuntime jsRuntime
+<button type="button" class="btn btn-primary" @onclick="TriggerNetInstanceMethod">
+    Trigger .NET instance method HelloHelper.SayHello
+</button>
+
+@code {
+    public async Task TriggerNetInstanceMethod()
+    {
+        var exampleJsInterop = new ExampleJsInterop(jsRuntime);
+        await exampleJsInterop.CallHelloHelperSayHello("Bruce Wayne");
+    }
+}
