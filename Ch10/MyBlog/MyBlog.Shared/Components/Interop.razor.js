@@ -1,4 +1,4 @@
-﻿export function sayHello (dotnetHelper) {
-    return dotnetHelper.invokeMethodAsync('SayHello')
+﻿export function sayHello (hellohelperref) {
+    return hellohelperref.invokeMethodAsync('SayHello')
         .then(r => console.log(r));
 }

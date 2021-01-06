@@ -1239,10 +1239,6 @@
   <ItemGroup>
     <ProjectReference Include="..\MyBlog.Data.Shared\MyBlog.Data.Shared.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Components\JSInterop\" />
-  </ItemGroup>
   
 
 
