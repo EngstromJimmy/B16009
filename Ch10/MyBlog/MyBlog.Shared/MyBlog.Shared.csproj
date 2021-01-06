@@ -1241,12 +1241,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\ItemList.razor.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Components\JSInterop\" />
   </ItemGroup>
   
