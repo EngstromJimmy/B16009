@@ -86,8 +86,6 @@
     }
     //</SaveToStorage>
 
-    @*<load>*@
-
 bool hasTag(MyBlog.Data.Models.Tag tag)
 {
     return post.Tags.Contains(tag);
@@ -120,7 +118,6 @@ protected override async Task OnParametersSetAsync()
     tags = await api.GetTagsAsync();
     base.OnParametersSet();
 }
-    @*</load>*@
     @*<save>*@
     public async Task SavePost()
     {
