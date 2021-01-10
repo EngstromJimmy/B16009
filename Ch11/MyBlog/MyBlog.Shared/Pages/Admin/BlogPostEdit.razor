@@ -106,6 +106,7 @@ protected override async Task OnParametersSetAsync()
         await UpdateHTMLAsync();
 
     }
+    //<AddElse>
     else
     {
         var saved= await storage.GetAsync<BlogPost>("EditCurrentPost");
@@ -114,7 +115,7 @@ protected override async Task OnParametersSetAsync()
             post = saved;
         }
     }
-
+    //</AddElse>
     categories = await api.GetCategoriesAsync();
     tags = await api.GetTagsAsync();
     base.OnParametersSet();
