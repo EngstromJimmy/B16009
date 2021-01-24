@@ -40,7 +40,7 @@ namespace MyBlogWebAssembly.Server
                 options.PayloadSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
                 options.PayloadSerializerOptions.PropertyNamingPolicy = null;
             });
-            //<SignalR1>
+            //</SignalR1>
             //<AddMyBlogDataServices>
             services.AddDbContextFactory<MyBlogDbContext>(opt => opt.UseSqlite($"Data Source=../../MyBlog.db"));
             services.AddScoped<IMyBlogApi, MyBlogApiServerSide>();
