@@ -18,6 +18,7 @@ using IdentityServer4.EntityFramework.Options;
 using Microsoft.Extensions.Options;
 using MyBlog.Shared.Interfaces;
 using MyBlogServerSide.Services;
+using MyBlog.Data.Shared.Interfaces;
 //</IdentityServerUsing>
 namespace MyBlogServerSide
 {
@@ -57,6 +58,10 @@ namespace MyBlogServerSide
             //<BrowserStorage>
             services.AddScoped<IBrowserStorage,MyBlogProtectedBrowserStorage>();
             //</BrowserStorage>
+
+            //<NotificationService>
+            services.AddScoped<IBlogNotificationService, BlazorServerBlogNotificationService>();
+            //</NotificationService>
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
