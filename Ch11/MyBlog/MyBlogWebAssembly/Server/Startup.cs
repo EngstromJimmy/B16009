@@ -82,7 +82,7 @@ namespace MyBlogWebAssembly.Server
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
                     new[] { "application/octet-stream" });
             });
-            //<SignalR2>
+            //</SignalR2>
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
