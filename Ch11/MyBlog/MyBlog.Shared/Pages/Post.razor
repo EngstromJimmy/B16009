@@ -1,22 +1,15 @@
-﻿@*<NotificationService>*@
+﻿@*<NotificationService1>*@
 @using MyBlog.Shared.Interfaces
 @inject IBlogNotificationService notificationService
-@implements IDisposable 
-@*</NotificationService>*@
+@implements IDisposable
+@*</NotificationService1>*@
 
-@*<Page>*@
+
 @page "/post/{BlogPostId:int}"
-@*</Page>*@
-@*<InjectAPI>*@
 @inject IMyBlogApi api
 @inject NavigationManager navman
-@*</InjectAPI>*@
-
-@*<usingmarkdig>*@
 @using Markdig;
-@*</usingmarkdig>*@
 
-@*<ShowingThePost>*@
 @if (BlogPost != null)
 {
     <Title Value="@BlogPost.Title"></Title>
@@ -30,34 +23,49 @@
     <h3>@BlogPost.Title</h3>
     @((MarkupString)Markdig.Markdown.ToHtml(BlogPost.Text, pipeline))
 }
-@*</ShowingThePost>*@
+
 @code {
-    @*<BlogPostId>*@
+
     [Parameter]
     public int BlogPostId { get; set; }
-    @*</BlogPostId>*@
 
-    @*<BlogPost>*@
     public BlogPost BlogPost { get; set; }
-    @*</BlogPost>*@
 
-    @*<OnParametersSetAsync>*@
     protected async override Task OnParametersSetAsync()
     {
         BlogPost = await api.GetBlogPostAsync(BlogPostId);
         await base.OnParametersSetAsync();
     }
-    @*</OnParametersSetAsync>*@
 
-    @*<OnInitializedAsync>*@
     MarkdownPipeline pipeline;
 
     protected override Task OnInitializedAsync()
     {
+        @*<NotificationService2>*@
+        notificationService.BlogPostChanged += PostChanged;
+        @*</NotificationService2>*@
+
         pipeline = new MarkdownPipelineBuilder()
-                 .UseEmojiAndSmiley()
-                 .Build();
+             .UseEmojiAndSmiley()
+             .Build();
         return base.OnInitializedAsync();
     }
-    @*</OnInitializedAsync>*@
+
+    @*<NotificationService3>*@
+    private async void PostChanged(BlogPost post)
+    {
+        if (BlogPost.Id == post.Id)
+        {
+            BlogPost = post;
+            await InvokeAsync(() => this.StateHasChanged());
+        }
+    }
+    @*</NotificationService3>*@
+    @*<NotificationService4>*@
+    void IDisposable.Dispose()
+    {
+        notificationService.BlogPostChanged -= PostChanged;
+    }
+    @*</NotificationService4>*@
+
 }

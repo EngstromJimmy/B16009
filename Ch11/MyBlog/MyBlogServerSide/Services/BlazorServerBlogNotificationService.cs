@@ -7,8 +7,8 @@ namespace MyBlogServerSide.Services
 {
     public class BlazorServerBlogNotificationService : IBlogNotificationService
     {
-        public Action<BlogPost> BlogPostChanged { get; set; }
-
+        public event Action<BlogPost>? BlogPostChanged;
+     
         public Task SendNotification(BlogPost post)
         {
             BlogPostChanged?.Invoke(post);

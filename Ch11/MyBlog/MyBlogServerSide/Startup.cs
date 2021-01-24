@@ -18,7 +18,6 @@ using IdentityServer4.EntityFramework.Options;
 using Microsoft.Extensions.Options;
 using MyBlog.Shared.Interfaces;
 using MyBlogServerSide.Services;
-using MyBlog.Data.Shared.Interfaces;
 //</IdentityServerUsing>
 namespace MyBlogServerSide
 {

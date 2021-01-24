@@ -6,7 +6,7 @@ namespace MyBlog.Shared.Interfaces
 {
     public interface IBlogNotificationService
     {
-        Action<BlogPost> BlogPostChanged { get; set; }
+        event Action<BlogPost> BlogPostChanged;
         Task SendNotification(BlogPost post);
     }
 }
