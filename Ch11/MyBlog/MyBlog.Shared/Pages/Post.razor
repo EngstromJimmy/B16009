@@ -1,4 +1,9 @@
-﻿@*<Page>*@
+﻿@*<NotificationService>*@
+@using MyBlog.Shared.Interfaces
+@inject IBlogNotificationService notificationService
+@*</NotificationService>*@
+
+@*<Page>*@
 @page "/post/{BlogPostId:int}"
 @*</Page>*@
 @*<InjectAPI>*@

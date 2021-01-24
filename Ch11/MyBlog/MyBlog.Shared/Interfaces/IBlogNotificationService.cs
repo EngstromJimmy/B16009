@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace MyBlog.Data.Shared.Interfaces
+namespace MyBlog.Shared.Interfaces
 {
     public interface IBlogNotificationService
     {
