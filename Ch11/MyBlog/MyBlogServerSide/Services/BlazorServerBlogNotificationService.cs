@@ -1,5 +1,5 @@
 ﻿using MyBlog.Data.Models;
-using MyBlog.Data.Shared.Interfaces;
+using MyBlog.Shared.Interfaces;
 using System;
 using System.Threading.Tasks;
 

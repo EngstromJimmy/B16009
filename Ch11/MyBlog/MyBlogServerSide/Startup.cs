@@ -60,7 +60,7 @@ namespace MyBlogServerSide
             //</BrowserStorage>
 
             //<NotificationService>
-            services.AddScoped<IBlogNotificationService, BlazorServerBlogNotificationService>();
+            services.AddSingleton<IBlogNotificationService, BlazorServerBlogNotificationService>();
             //</NotificationService>
         }
 
