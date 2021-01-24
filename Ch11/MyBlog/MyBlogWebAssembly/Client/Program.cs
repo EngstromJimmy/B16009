@@ -14,6 +14,7 @@ using MyBlog.Data.Interfaces;
 using Blazored.SessionStorage;
 using MyBlog.Shared.Interfaces;
 using MyBlogServerSide.Services;
+using MyBlogWebAssembly.Client.Services;
 
 namespace MyBlogWebAssembly.Client
 {    
@@ -32,7 +33,7 @@ namespace MyBlogWebAssembly.Client
 
             builder.Services.AddHttpClient("Public", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
+            
             builder.Services.AddApiAuthorization()
                 .AddAccountClaimsPrincipalFactory<RoleAccountClaimsPrincipalFactory>();
             //</Identity>
@@ -47,6 +48,9 @@ namespace MyBlogWebAssembly.Client
                 });
             builder.Services.AddScoped<IBrowserStorage, MyBlogBrowserStorage>();
             //</AddBlazored>
+            //<SignalR>
+            builder.Services.AddSingleton<IBlogNotificationService, BlazorWebAssemblyBlogNotificationService>();
+            //</SignalR>
             await builder.Build().RunAsync();
         }
     }

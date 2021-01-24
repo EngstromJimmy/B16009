@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
+using MyBlogWebAssembly.Server.Hubs;
 //<using>
 using MyBlog.Data;
 using MyBlog.Data.Interfaces;
@@ -34,6 +35,12 @@ namespace MyBlogWebAssembly.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //<SignalR1>
+            services.AddSignalR().AddJsonProtocol(options => {
+                options.PayloadSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+                options.PayloadSerializerOptions.PropertyNamingPolicy = null;
+            });
+            //<SignalR1>
             //<AddMyBlogDataServices>
             services.AddDbContextFactory<MyBlogDbContext>(opt => opt.UseSqlite($"Data Source=../../MyBlog.db"));
             services.AddScoped<IMyBlogApi, MyBlogApiServerSide>();
@@ -68,12 +75,22 @@ namespace MyBlogWebAssembly.Server
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
             });
             services.AddRazorPages();
-            
+
+            //<SignalR2>
+            services.AddResponseCompression(opts =>
+            {
+                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                    new[] { "application/octet-stream" });
+            });
+            //<SignalR2>
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //<SignalR3>
+            app.UseResponseCompression();
+            //</SignalR3>
             if (env.IsDevelopment())
             {
                 app.UseMigrationsEndPoint();
@@ -103,6 +120,9 @@ namespace MyBlogWebAssembly.Server
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
+                //<SignalR4>
+                endpoints.MapHub<BlogNotificationHub>("/BlogNotificationHub");
+                //</SignalR4>
                 endpoints.MapFallbackToFile("index.html");
             });
         }
