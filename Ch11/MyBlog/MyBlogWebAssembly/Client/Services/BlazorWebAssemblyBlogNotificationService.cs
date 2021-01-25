@@ -4,9 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using MyBlog.Data.Models;
 using MyBlog.Shared.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MyBlogWebAssembly.Client.Services
