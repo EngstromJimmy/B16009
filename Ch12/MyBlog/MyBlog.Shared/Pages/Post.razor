@@ -19,7 +19,7 @@
     <Meta property="og:image" content="@($"{navman.BaseUri}/pathtoanimage.png")" />
     <Meta property="og:url" content="@navman.Uri" />
     <Meta name="twitter:card" content="@BlogPost.Text.Take(100).ToString()" />
-
+    <a href="/">back</a>
     <h3>@BlogPost.Title</h3>
     @((MarkupString)Markdig.Markdown.ToHtml(BlogPost.Text, pipeline))
 }
