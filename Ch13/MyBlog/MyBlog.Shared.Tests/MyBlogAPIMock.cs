@@ -69,6 +69,7 @@ namespace MyBlog.Shared.Tests
             return list;
         }
         //</Tags>
+        //<TheRest>
         public Task<BlogPost> SaveBlogPostAsync(BlogPost item)
         {
             return Task.FromResult(item);
@@ -93,5 +94,6 @@ namespace MyBlog.Shared.Tests
         {
             return Task.CompletedTask;
         }
+        //</TheRest>
     }
 }
