@@ -1,0 +1,51 @@
+﻿@*<Inherit>*@
+@inherits TestComponentBase
+@*</Inherit>*@
+
+@*<Fixture>*@
+<Fixture Description="Testing showing blog posts" Test="Test" Setup="TestSetup">
+    <ComponentUnderTest>
+        <MyBlog.Shared.Pages.Index></MyBlog.Shared.Pages.Index>
+    </ComponentUnderTest>
+    <Fragment Id="Blogpost0">
+        <article>
+            <h2>Blogpost 0</h2>
+            This is a blog post no 0
+            <br>
+            <a href="/Post/0">Read more</a>
+        </article>
+    </Fragment>
+    <Fragment Id="Blogpost9">
+        <article>
+            <h2>Blogpost 9</h2>
+            This is a blog post no 9
+            <br>
+            <a href="/Post/9">Read more</a>
+        </article>
+    </Fragment>
+</Fixture>
+@*</Fixture>*@
+
+@{
+    @*<Services>*@
+    void TestSetup(Fixture fixture)
+    {
+        fixture.Services.AddScoped<MyBlog.Data.Interfaces.IMyBlogApi, MyBlogAPIMock>();
+    }
+    @*</Services>*@
+
+    @*<Test>*@
+    void Test(Fixture fixture)
+    {
+        // Arrange
+        var cut = fixture.GetComponentUnderTest<MyBlog.Shared.Pages.Index>();
+
+        // Assert that the counter was incremented
+        var expected1 = fixture.GetFragment("Blogpost0");
+        cut.Find("article").MarkupMatches(expected1);
+
+        var expected2 = fixture.GetFragment("Blogpost9");
+        cut.FindAll("article")[9].MarkupMatches(expected2);
+    }
+    @*</Test>*@
+}
