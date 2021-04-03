@@ -1,0 +1,39 @@
+﻿@*<Inherit>*@
+@inherits TestComponentBase
+@*</Inherit>*@
+
+@*<Fixture>*@
+<Fixture Description="Testing admin Listing blog posts" Test="Test" Setup="TestSetup">
+    <ComponentUnderTest>
+        <MyBlog.Shared.Pages.Admin.BlogPostList></MyBlog.Shared.Pages.Admin.BlogPostList>
+    </ComponentUnderTest>
+    <Fragment>
+        <a href="/Admin/BlogPosts/new">New blog post</a>
+</Fragment>
+</Fixture>
+@*</Fixture>*@
+
+@{
+    @*<Services>*@
+void TestSetup(Fixture fixture)
+{
+    fixture.Services.AddScoped<MyBlog.Data.Interfaces.IMyBlogApi, MyBlogAPIMock>();
+}
+    @*</Services>*@
+
+    @*<Test>*@
+void Test(Fixture fixture)
+{
+    // Arrange
+    var authContext = fixture.AddTestAuthorization();
+    authContext.SetAuthorized("TEST USER");
+    authContext.SetRoles("admin");
+
+    var cut = fixture.GetComponentUnderTest<MyBlog.Shared.Pages.Admin.BlogPostList>();
+
+    // Assert that the counter was incremented
+    var expected1 = fixture.GetFragment();
+    cut.Find("a").MarkupMatches(expected1);
+}
+    @*</Test>*@
+}

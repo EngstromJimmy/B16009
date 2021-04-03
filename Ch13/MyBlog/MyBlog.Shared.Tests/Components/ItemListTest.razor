@@ -1,0 +1,75 @@
+﻿@*<Inherit>*@
+@inherits TestComponentBase
+@*</Inherit>*@
+
+@using Bunit.JSInterop
+
+@*<Fixture>*@
+<Fixture Description="Testing deleting an item" Test="Test" Setup="TestSetup">
+    <ComponentUnderTest>
+        <MyBlog.Shared.Components.ItemList DeleteEvent="@Delete" SelectEvent="@Selected" Items="data" ItemType="string">
+            <ItemTemplate>
+                <div>@context</div>
+            </ItemTemplate>
+        </MyBlog.Shared.Components.ItemList>
+    </ComponentUnderTest>
+    <Fragment>
+        <h3>List</h3>
+        <table>
+            <div style="height: 0px;" blazor:elementReference=""></div>
+            <tr>
+                <td><button class="btn btn-primary" blazor:onclick="1">Select</button></td>
+                <td><div>TestItem</div></td>
+                <td><button class="btn btn-danger" blazor:onclick="2">Delete</button></td>
+            </tr>
+            <div style="height: 0px;" blazor:elementReference=""></div>
+        </table>
+    </Fragment>
+</Fixture>
+@*</Fixture>*@
+
+@code{
+    bool deleted = false;
+    bool selected = false;
+    List<string> data = new List<string>();
+    private Task Delete(string item)
+    {
+        deleted = true;
+        return Task.CompletedTask;
+    }
+
+    private Task Selected(string item)
+    {
+        selected = true;
+        return Task.CompletedTask;
+    }
+
+
+    @*<Services>*@
+    void TestSetup(Fixture fixture)
+    {
+        data = new List<string>() { "TestItem" };
+    }
+    @*</Services>*@
+
+    @*<Test>*@
+async void Test(Fixture fixture)
+{
+
+    var moduleInterop = fixture.JSInterop.SetupModule("/_content/MyBlog.Shared/ItemList.razor.js");
+    var showconfirm = moduleInterop.Setup<bool>("showConfirm", "Are you sure?").SetResult(true);
+
+    // Arrange
+    var cut = fixture.GetComponentUnderTest<MyBlog.Shared.Components.ItemList<string>>();
+
+    // Assert
+    var expected = fixture.GetFragment();
+
+
+    var buttons = cut.FindAll("button");
+    buttons[1].Click(); //Select button
+    Assert.True(deleted, "Deleting an item failed");
+
+}
+    @*</Test>*@
+}
