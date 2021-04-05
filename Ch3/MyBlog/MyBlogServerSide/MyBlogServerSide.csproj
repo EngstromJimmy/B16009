@@ -6,14 +6,13 @@
 
   <ItemGroup>
     <None Include="Nuget.config" />
+    <None Include="wwwroot\css\bootstrap\bootstrap.min.css.map" />
+    <None Include="wwwroot\css\open-iconic\FONT-LICENSE" />
+    <None Include="wwwroot\css\open-iconic\font\fonts\open-iconic.svg" />
+    <None Include="wwwroot\css\open-iconic\ICON-LICENSE" />
+    <None Include="wwwroot\css\open-iconic\README.md" />
   </ItemGroup>
-<!--<Nuget>-->
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-alpha.1.20417.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.sqlite" Version="6.0.0-alpha.1.20417.8" />
-  </ItemGroup>
-<!--</Nuget>-->
-  <ItemGroup>
+ <ItemGroup>
     <ProjectReference Include="..\MyBlog.Data\MyBlog.Data.csproj" />
   </ItemGroup>
 
