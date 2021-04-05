@@ -63,7 +63,7 @@ namespace MyBlog.Data
         //</Get>
 
         //<Delete>
-        private async Task deleteItem(IMyBlogItem item)
+        private async Task DeleteItem(IMyBlogItem item)
         {
             using var context = factory.CreateDbContext();
             context.Remove(item);
@@ -74,22 +74,22 @@ namespace MyBlog.Data
         //<DeleteMethods>
         public async Task DeleteBlogPostAsync(BlogPost item)
         {
-            await deleteItem(item);
+            await DeleteItem(item);
         }
 
         public async Task DeleteCategoryAsync(Category item)
         {
-            await deleteItem(item);
+            await DeleteItem(item);
         }
 
         public async Task DeleteTagAsync(Tag item)
         {
-            await deleteItem(item);
+            await DeleteItem(item);
         }
         //</DeleteMethods>
 
         //<Save>
-        private async Task<IMyBlogItem> saveItem(IMyBlogItem item)
+        private async Task<IMyBlogItem> SaveItem(IMyBlogItem item)
         {
             using var context = factory.CreateDbContext();
             if (item.Id == 0)
@@ -106,17 +106,17 @@ namespace MyBlog.Data
 
         public async Task<BlogPost> SaveBlogPostAsync(BlogPost item)
         {
-            return (await saveItem(item)) as BlogPost;
+            return (await SaveItem(item)) as BlogPost;
         }
 
         public async Task<Category> SaveCategoryAsync(Category item)
         {
-            return (await saveItem(item)) as Category;
+            return (await SaveItem(item)) as Category;
         }
 
         public async Task<Tag> SaveTagAsync(Tag item)
         {
-            return (await saveItem(item)) as Tag;
+            return (await SaveItem(item)) as Tag;
         }
         //</Save> 
     }
