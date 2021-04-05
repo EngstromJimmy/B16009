@@ -98,7 +98,22 @@ namespace MyBlog.Data
             }
             else
             {
-                context.Attach(item);
+                if (item is BlogPost)
+                {
+                    var post = item as BlogPost;
+                    var currentpost = await context.BlogPosts.Include(p => p.Category).Include(p => p.Tags).FirstOrDefaultAsync(p => p.Id == post.Id);
+                    currentpost.PublishDate = post.PublishDate;
+                    currentpost.Title = post.Title;
+                    currentpost.Text = post.Text;
+                    var ids = post.Tags.Select(t => t.Id);
+                    currentpost.Tags = context.Tags.Where(t => ids.Contains(t.Id)).ToList();
+                    currentpost.Category = await context.Categories.FirstOrDefaultAsync(c => c.Id == post.Category.Id);
+                    await context.SaveChangesAsync();
+                }
+                else
+                {
+                    context.Entry(item).State = EntityState.Modified;
+                }
             }
             await context.SaveChangesAsync();
             return item;
