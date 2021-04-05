@@ -18,7 +18,7 @@ namespace MyBlog.Data
         }
         //</Constructor>
 
-        //<Get>
+        //<GetBlogPosts>
         public async Task<BlogPost> GetBlogPostAsync(int id)
         {
             using var context = factory.CreateDbContext();
@@ -36,7 +36,8 @@ namespace MyBlog.Data
             using var context = factory.CreateDbContext();
             return await context.BlogPosts.OrderByDescending(p=>p.PublishDate).Skip(startindex).Take(numberofposts).ToListAsync();
         }
-
+        //</GetBlogPosts>
+        //<GetCategories>
         public async Task<List<Category>> GetCategoriesAsync()
         {
             using var context = factory.CreateDbContext();
@@ -48,7 +49,8 @@ namespace MyBlog.Data
             using var context = factory.CreateDbContext();
             return await context.Categories.Include(p => p.BlogPosts).FirstOrDefaultAsync(c=>c.Id==id);
         }
-
+        //</GetCategories>
+        //<GetTags>
         public async Task<Tag> GetTagAsync(int id)
         {
             using var context = factory.CreateDbContext();
@@ -60,7 +62,7 @@ namespace MyBlog.Data
             using var context = factory.CreateDbContext();
             return await context.Tags.ToListAsync();
         }
-        //</Get>
+        //</GetTags>
 
         //<Delete>
         private async Task DeleteItem(IMyBlogItem item)
