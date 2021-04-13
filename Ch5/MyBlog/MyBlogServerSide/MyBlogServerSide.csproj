@@ -7,13 +7,10 @@
   <ItemGroup>
     <None Include="Nuget.config" />
   </ItemGroup>
-<!--<Nuget>-->
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web.Extensions" Version="5.0.0-rc.1.20430.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-alpha.1.20417.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.sqlite" Version="6.0.0-alpha.1.20417.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web.Extensions" Version="5.0.0-preview9.20513.1" />
   </ItemGroup>
-<!--</Nuget>-->
+
   <ItemGroup>
     <ProjectReference Include="..\MyBlog.Data\MyBlog.Data.csproj" />
   </ItemGroup>

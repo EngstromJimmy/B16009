@@ -4,7 +4,7 @@ using MyBlog.Data.Interfaces;
 
 namespace MyBlog.Data.Models
 {
-    public class Tag:IMyBlogItem
+    public class Tag : IMyBlogItem
     {
         public int Id {get; set; }
         public string Name { get; set; }

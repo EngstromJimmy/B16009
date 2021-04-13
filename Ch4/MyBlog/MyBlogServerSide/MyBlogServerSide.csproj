@@ -5,15 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Nuget.config" />
-  </ItemGroup>
-<!--<Nuget>-->
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-alpha.1.20417.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.sqlite" Version="6.0.0-alpha.1.20417.8" />
-  </ItemGroup>
-<!--</Nuget>-->
-  <ItemGroup>
     <ProjectReference Include="..\MyBlog.Data\MyBlog.Data.csproj" />
   </ItemGroup>
 

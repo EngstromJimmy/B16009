@@ -3,23 +3,22 @@
 @*</Page>*@
 @*<InjectAPI>*@
 @inject IMyBlogApi api
-@inject NavigationManager navman 
+@inject NavigationManager navman
 @*</InjectAPI>*@
 
 @*<ShowingThePost>*@
 @if (BlogPost != null)
 {
     <Title Value="@BlogPost.Title"></Title>
-
-    <Meta  property="og:title" content="@BlogPost.Title"/>
-    <Meta property="og:description" content="@BlogPost.Text.Take(100).ToString()"/>
-    <Meta property="og:image" content="@($"{navman.BaseUri}/pathtoanimage.png")"/>
-    <Meta property="og:url" content="@navman.Uri"/>
-    <Meta name="twitter:card" content="@BlogPost.Text.Take(100).ToString()"/>
-
+    <Meta property="og:title" content="@BlogPost.Title" />
+    <Meta property="og:description" content="@(new string(BlogPost.Text.Take(100).ToArray()))" />
+    <Meta property="og:image" content="@($"{navman.BaseUri}/pathtoanimage.png")" />
+    <Meta property="og:url" content="@navman.Uri" />
+    <Meta name="twitter:card" content="@(new string(BlogPost.Text.Take(100).ToArray()))" />
     <h3>@BlogPost.Title</h3>
     @((MarkupString)BlogPost.Text)
 }
+
 @*</ShowingThePost>*@
 @code {
     @*<BlogPostId>*@
