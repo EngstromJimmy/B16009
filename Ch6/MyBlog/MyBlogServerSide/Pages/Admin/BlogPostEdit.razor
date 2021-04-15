@@ -67,12 +67,13 @@ string? markDownAsHTML { get; set; }
     @*</markdig>*@
 
 
-    protected void UpdateHTML()
-    {
-        markDownAsHTML = Markdig.Markdown.ToHtml(post.Text, pipeline);
-    }
+
 
     @*<load>*@
+protected void UpdateHTML()
+{
+    markDownAsHTML = Markdig.Markdown.ToHtml(post.Text, pipeline);
+}
 
 bool hasTag(MyBlog.Data.Models.Tag tag)
 {
