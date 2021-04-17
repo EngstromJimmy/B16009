@@ -8,7 +8,7 @@ namespace MyBlogServerSide.Components
     {
         [CascadingParameter]
         EditContext? CurrentEditContext { get; set; }
-        public ProviderType provider { get; set; } = new ProviderType();
+        public ProviderType Provider { get; set; } = new ProviderType();
         protected override void OnInitialized()
         {
             if (CurrentEditContext == null)
@@ -17,7 +17,7 @@ namespace MyBlogServerSide.Components
                     $"parameter of type {nameof(EditContext)}. For example, you can use {nameof(DataAnnotationsValidator)} " +
                     $"inside an EditForm.");
             }
-            CurrentEditContext.SetFieldCssClassProvider(provider);
+            CurrentEditContext.SetFieldCssClassProvider(Provider);
         }
     }
 }
