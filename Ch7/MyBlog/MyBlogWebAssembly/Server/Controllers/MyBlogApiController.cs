@@ -46,7 +46,6 @@ namespace MyBlogWebAssembly.Server.Controllers
         //</GetBlogPostAsync>
 
         //<SaveBlogPostAsync>
-        [Authorize]
         [HttpPut]
         [Route("BlogPosts")]
         public async Task<BlogPost> SaveBlogPostAsync([FromBody] BlogPost item)
@@ -56,7 +55,6 @@ namespace MyBlogWebAssembly.Server.Controllers
         //</SaveBlogPostAsync>
 
         //<DeleteBlogPostAsync>
-        [Authorize]
         [HttpDelete]
         [Route("BlogPosts")]
         public async Task DeleteBlogPostAsync([FromBody] BlogPost item)
@@ -80,7 +78,6 @@ namespace MyBlogWebAssembly.Server.Controllers
             return await api.GetCategoryAsync(id);
         }
 
-        [Authorize]
         [HttpPut]
         [Route("Categories")]
         public async Task<Category> SaveCategoryAsync([FromBody] Category item)
@@ -88,7 +85,6 @@ namespace MyBlogWebAssembly.Server.Controllers
             return await api.SaveCategoryAsync(item);
         }
 
-        [Authorize]
         [HttpDelete]
         [Route("Categories")]
         public async Task DeleteCategoryAsync([FromBody] Category item)
@@ -113,7 +109,6 @@ namespace MyBlogWebAssembly.Server.Controllers
             return await api.GetTagAsync(id);
         }
 
-        [Authorize]
         [HttpPut]
         [Route("Tags")]
         public async Task<Tag> SaveTagAsync([FromBody] Tag item)
@@ -121,7 +116,6 @@ namespace MyBlogWebAssembly.Server.Controllers
             return await api.SaveTagAsync(item);
         }
 
-        [Authorize]
         [HttpDelete]
         [Route("Tags")]
         public async Task DeleteTagAsync([FromBody] Tag item)
@@ -129,8 +123,5 @@ namespace MyBlogWebAssembly.Server.Controllers
             await api.DeleteTagAsync(item);
         }
         //</Tags>
-
-
-
     }
 }
