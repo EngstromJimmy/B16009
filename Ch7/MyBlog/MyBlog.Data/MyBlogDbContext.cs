@@ -1,28 +1,19 @@
-﻿using IdentityServer4.EntityFramework.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Options;
 using MyBlog.Data.Models;
 
 namespace MyBlog.Data
 {
-    public class MyBlogDbContext : ApiAuthorizationDbContext<AppUser>
+    public class MyBlogDbContext : DbContext
     {
-        public MyBlogDbContext(DbContextOptions options) : base(options, new OperationalStoreOptionsMigrations())
-        { }
+        public MyBlogDbContext(DbContextOptions<MyBlogDbContext> context) : base(context)
+        {
+
+        }
 
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Tag> Tags { get; set; }
-
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-        }
-
     }
 
     public class MyBlogDbContextFactory : IDesignTimeDbContextFactory<MyBlogDbContext>
@@ -30,23 +21,9 @@ namespace MyBlog.Data
         public MyBlogDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<MyBlogDbContext>();
-            optionsBuilder.UseSqlite("Data Source = ../MyBlog.db");
+            optionsBuilder.UseSqlite("Data Source = test.db");
 
             return new MyBlogDbContext(optionsBuilder.Options);
         }
     }
-
-    //<OperationalStoreOptionsMigrations>
-    public class OperationalStoreOptionsMigrations : IOptions<OperationalStoreOptions>
-    {
-        public OperationalStoreOptions Value => new OperationalStoreOptions()
-        {
-            DeviceFlowCodes = new TableConfiguration("DeviceCodes"),
-            EnableTokenCleanup = false,
-            PersistedGrants = new TableConfiguration("PersistedGrants"),
-            TokenCleanupBatchSize = 100,
-            TokenCleanupInterval = 3600,
-        };
-    }
-    //</OperationalStoreOptionsMigrations>
 }

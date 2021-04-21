@@ -1,6 +1,5 @@
-﻿@attribute [Authorize]
-@*<Top>*@
-@page "/Admin/Categories"
+﻿@*<Top>*@
+@page "/admin/categories"
 @using MyBlogServerSide.Components
 @inject IMyBlogApi api
 <h3>Categories</h3>
@@ -15,7 +14,7 @@
 </EditForm>
 @*</Form>*@
 @*<List>*@
-<ItemList Items="items" DeleteEvent="@Delete" SelectEvent="@Select" ItemType="Category">
+<ItemList Items="Items" DeleteEvent="@Delete" SelectEvent="@Select" ItemType="Category">
     <ItemTemplate>
         @{
             var item = context as Category;
@@ -30,12 +29,12 @@
 
 @*<Code>*@
 @code {
-    private List<Category> items { get; set; } = new List<Category>();
+    private List<Category> Items { get; set; } = new List<Category>();
     public Category Item { get; set; } = new Category();
 
     protected async override Task OnInitializedAsync()
     {
-        items = await api.GetCategoriesAsync();
+        Items = await api.GetCategoriesAsync();
         await base.OnInitializedAsync();
     }
 
@@ -44,7 +43,7 @@
         try
         {
             await api.DeleteCategoryAsync(category);
-            items.Remove(category);
+            Items.Remove(category);
         }
         catch { }
     }
@@ -55,7 +54,7 @@
         {
             if (Item.Id == 0)
             {
-                items.Add(Item);
+                Items.Add(Item);
             }
             await api.SaveCategoryAsync(Item);
             Item = new Category();

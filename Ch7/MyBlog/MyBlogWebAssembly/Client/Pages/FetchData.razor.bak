@@ -1,5 +1,6 @@
 ﻿@*<FetchDataTopClient>*@
 @page "/fetchdata"
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using MyBlogWebAssembly.Shared
 @inject HttpClient Http
 @*</FetchDataTopClient>*@
@@ -37,12 +38,20 @@ else
 }
 
 @code {
-    @*<FetchDataCodeClient>*@
+
     private WeatherForecast[] forecasts;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        @*<WeatherForecast>*@
+        try
+        {
+            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+        @*</WeatherForecast>*@
     }
-    @*</FetchDataCodeClient>*@
 }
