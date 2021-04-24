@@ -12,7 +12,7 @@ namespace MyBlog.Data
     public class MyBlogApiClientSide : IMyBlogApi
     {
         //<Constructor>
-        IHttpClientFactory factory;
+        private readonly IHttpClientFactory factory;
 
         public MyBlogApiClientSide(IHttpClientFactory factory)
         {
