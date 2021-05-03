@@ -68,8 +68,6 @@ string? markDownAsHTML { get; set; }
     @*</markdig>*@
 
 
-
-
     @*<load>*@
 protected void UpdateHTML()
 {

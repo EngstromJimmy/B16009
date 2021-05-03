@@ -11,10 +11,10 @@ using Newtonsoft.Json;
 //</using>
 namespace MyBlog.Data
 {
-    public class MyBlogApiClientSide : IMyBlogApi
+    public class MyBlogApiClientSide:IMyBlogApi
     {
         //<Constructor>
-        private readonly IHttpClientFactory factory;
+        IHttpClientFactory factory;
 
         public MyBlogApiClientSide(IHttpClientFactory factory)
         {

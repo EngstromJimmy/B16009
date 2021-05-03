@@ -1,6 +1,6 @@
 ﻿@attribute [Authorize]
 @*<Top>*@
-@page "/Admin/Tags"
+@page "/admin/tags"
 @using MyBlogServerSide.Components
 @inject IMyBlogApi api
 <h3>Tags</h3>
@@ -15,7 +15,7 @@
 </EditForm>
 @*</Form>*@
 @*<List>*@
-<ItemList Items="items" DeleteEvent="@Delete" SelectEvent="@Select" ItemType="Tag">
+<ItemList Items="Items" DeleteEvent="@Delete" SelectEvent="@Select" ItemType="Tag">
     <ItemTemplate>
         @{
             var item = context as Tag;
@@ -29,13 +29,13 @@
 @*</List>*@
 @*<Code>*@
 @code {
-    private List<Tag> items { get; set; } = new List<Tag>();
+    private List<Tag> Items { get; set; } = new List<Tag>();
     public Tag Item { get; set; } = new Tag();
 
     protected async override Task OnInitializedAsync()
     {
 
-        items = await api.GetTagsAsync();
+        Items = await api.GetTagsAsync();
         await base.OnInitializedAsync();
     }
 
@@ -44,7 +44,7 @@
         try
         {
             await api.DeleteTagAsync(tag);
-            items.Remove(tag);
+            Items.Remove(tag);
         }
         catch { }
     }
@@ -55,7 +55,7 @@
         {
             if (Item.Id == 0)
             {
-                items.Add(Item);
+                Items.Add(Item);
             }
             await api.SaveTagAsync(Item);
             Item = new Tag();

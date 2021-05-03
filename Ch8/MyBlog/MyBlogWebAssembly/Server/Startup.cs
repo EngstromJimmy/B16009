@@ -33,12 +33,12 @@ namespace MyBlogWebAssembly.Server
         public void ConfigureServices(IServiceCollection services)
         {
             //<AddMyBlogDataServices>
-            services.AddDbContextFactory<MyBlogDbContext>(opt => opt.UseSqlite($"Data Source=../../MyBlog.db"));
+            services.AddDbContextFactory<MyBlogDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("MyBlogDB")));
             services.AddScoped<IMyBlogApi, MyBlogApiServerSide>();
             //</AddMyBlogDataServices>
 
             //<Identity>
-            services.AddDbContext<MyBlogDbContext>(opt => opt.UseSqlite($"Data Source=../../MyBlog.db"));
+            services.AddDbContext<MyBlogDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("MyBlogDB")));
 
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
