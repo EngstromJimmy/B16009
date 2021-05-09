@@ -1,37 +1,31 @@
-﻿//<using>
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using MyBlog.Data.Interfaces;
-using System.Net.Http;
-using MyBlog.Data.Models;
-using System.Net.Http.Json;
-using System;
+//<using>
 using MyBlog.Data.Interfaces;
 using System.Net.Http;
 using MyBlog.Data.Models;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using MyBlog.Data.Extensions;
-using Newtonsoft.Json;
-
+using System.Text.Json;
 //</using>
 namespace MyBlog.Data
 {
-    public class MyBlogApiClientSide : IMyBlogApi
+    public class MyBlogApiClientSide:IMyBlogApi
     {
         //<Constructor>
-        private readonly IHttpClientFactory factory;
+        IHttpClientFactory factory;
+
+        System.Text.Json.JsonSerializerOptions jsonoptions=new System.Text.Json.JsonSerializerOptions
+        {
+            ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve,
+            PropertyNamingPolicy = null
+        };
 
         public MyBlogApiClientSide(IHttpClientFactory factory)
         {
             this.factory = factory;
         }
-
-        System.Text.Json.JsonSerializerOptions jsonoptions = new System.Text.Json.JsonSerializerOptions
-        {
-            ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve,
-            PropertyNamingPolicy = null
-        };
         //</Constructor>
 
         //<BlogpostGet>
@@ -59,9 +53,9 @@ namespace MyBlog.Data
             try
             {
                 var httpclient = factory.CreateClient("Authenticated");
-                var response = await httpclient.PutAsJsonAsync<BlogPost>("MyBlogAPI/BlogPosts", item);
+                var response= await httpclient.PutAsJsonAsync<BlogPost>("MyBlogAPI/BlogPosts",item);
                 var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<BlogPost>(json);
+                return JsonSerializer.Deserialize<BlogPost>(json);
             }
             catch (AccessTokenNotAvailableException exception)
             {
@@ -69,6 +63,7 @@ namespace MyBlog.Data
             }
             return null;
         }
+
         public async Task DeleteBlogPostAsync(BlogPost item)
         {
             try
@@ -81,7 +76,6 @@ namespace MyBlog.Data
                 exception.Redirect();
             }
         }
-
         //</BlogpostSaveDelete>
 
         //<Categories>
@@ -116,7 +110,7 @@ namespace MyBlog.Data
                 var httpclient = factory.CreateClient("Authenticated");
                 var response = await httpclient.PutAsJsonAsync<Category>("MyBlogAPI/Categories", item);
                 var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<Category>(json);
+                return JsonSerializer.Deserialize<Category>(json);
             }
             catch (AccessTokenNotAvailableException exception)
             {
@@ -124,7 +118,6 @@ namespace MyBlog.Data
             }
             return null;
         }
-
         //</Categories>
 
         //<Tags>
@@ -152,6 +145,7 @@ namespace MyBlog.Data
                 exception.Redirect();
             }
         }
+
         public async Task<Tag> SaveTagAsync(Tag item)
         {
             try
@@ -159,7 +153,7 @@ namespace MyBlog.Data
                 var httpclient = factory.CreateClient("Authenticated");
                 var response = await httpclient.PutAsJsonAsync<Tag>("MyBlogAPI/Tags", item);
                 var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<Tag>(json);
+                return JsonSerializer.Deserialize<Tag>(json);
             }
             catch (AccessTokenNotAvailableException exception)
             {
@@ -167,7 +161,6 @@ namespace MyBlog.Data
             }
             return null;
         }
-
         //</Tags>
     }
 }
