@@ -11,7 +11,15 @@
         <a href="/Post/@p.Id">Read more</a>
     </article>
 @*</Post>*@
-</Virtualize>
+</Virtualize>MarkdownPipeline pipeline;
+protected override Task OnInitializedAsync()
+{
+    pipeline = new MarkdownPipelineBuilder()
+                .UseEmojiAndSmiley()
+                .Build();
+    return base.OnInitializedAsync();
+}
+
 
 @code{
 @*<FirstParagraph>*@
