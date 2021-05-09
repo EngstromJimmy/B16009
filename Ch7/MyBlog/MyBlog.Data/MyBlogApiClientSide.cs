@@ -6,6 +6,14 @@ using System.Net.Http;
 using MyBlog.Data.Models;
 using System.Net.Http.Json;
 using System;
+using MyBlog.Data.Interfaces;
+using System.Net.Http;
+using MyBlog.Data.Models;
+using System.Net.Http.Json;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using MyBlog.Data.Extensions;
+using Newtonsoft.Json;
+
 //</using>
 namespace MyBlog.Data
 {
@@ -48,13 +56,32 @@ namespace MyBlog.Data
         //<BlogpostSaveDelete>
         public async Task<BlogPost> SaveBlogPostAsync(BlogPost item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var httpclient = factory.CreateClient("Authenticated");
+                var response = await httpclient.PutAsJsonAsync<BlogPost>("MyBlogAPI/BlogPosts", item);
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<BlogPost>(json);
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+            }
+            return null;
         }
-
         public async Task DeleteBlogPostAsync(BlogPost item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var httpclient = factory.CreateClient("Authenticated");
+                await httpclient.DeleteAsJsonAsync<BlogPost>("MyBlogAPI/BlogPosts", item);
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+            }
         }
+
         //</BlogpostSaveDelete>
 
         //<Categories>
@@ -72,12 +99,32 @@ namespace MyBlog.Data
 
         public async Task DeleteCategoryAsync(Category item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var httpclient = factory.CreateClient("Authenticated");
+                await httpclient.DeleteAsJsonAsync<Category>("MyBlogAPI/Categories", item);
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+            }
         }
         public async Task<Category> SaveCategoryAsync(Category item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var httpclient = factory.CreateClient("Authenticated");
+                var response = await httpclient.PutAsJsonAsync<Category>("MyBlogAPI/Categories", item);
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<Category>(json);
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+            }
+            return null;
         }
+
         //</Categories>
 
         //<Tags>
@@ -95,13 +142,32 @@ namespace MyBlog.Data
 
         public async Task DeleteTagAsync(Tag item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var httpclient = factory.CreateClient("Authenticated");
+                await httpclient.DeleteAsJsonAsync<Tag>("MyBlogAPI/Categories", item);
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+            }
         }
-
         public async Task<Tag> SaveTagAsync(Tag item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var httpclient = factory.CreateClient("Authenticated");
+                var response = await httpclient.PutAsJsonAsync<Tag>("MyBlogAPI/Tags", item);
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<Tag>(json);
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+            }
+            return null;
         }
+
         //</Tags>
     }
 }
