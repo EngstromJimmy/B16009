@@ -11,12 +11,12 @@ using System.Text.Json;
 //</using>
 namespace MyBlog.Data
 {
-    public class MyBlogApiClientSide:IMyBlogApi
+    public class MyBlogApiClientSide : IMyBlogApi
     {
         //<Constructor>
         IHttpClientFactory factory;
 
-        System.Text.Json.JsonSerializerOptions jsonoptions=new System.Text.Json.JsonSerializerOptions
+        System.Text.Json.JsonSerializerOptions jsonoptions = new System.Text.Json.JsonSerializerOptions
         {
             ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve,
             PropertyNamingPolicy = null
@@ -53,7 +53,7 @@ namespace MyBlog.Data
             try
             {
                 var httpclient = factory.CreateClient("Authenticated");
-                var response= await httpclient.PutAsJsonAsync<BlogPost>("MyBlogAPI/BlogPosts",item);
+                var response = await httpclient.PutAsJsonAsync<BlogPost>("MyBlogAPI/BlogPosts", item);
                 var json = await response.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<BlogPost>(json);
             }

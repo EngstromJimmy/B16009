@@ -2,7 +2,7 @@
 $input-color:#444;
 @import "../Bootstrap/scss/bootstrap";
 @import "../Bootswatch/Dist/Darkly/_bootswatch";
-@import "./bootstrap-icons-1.2.2/font/bootstrap-icons";
+@import "./bootstrap-icons-1.4.1/bootstrap-icons";
 
 //<Styles>
 .content {
@@ -17,7 +17,6 @@ $input-color:#444;
 .bi
 {
     margin-right:5px;
-    margin-bottom:5px;
 }
   
 #blazor-error-ui {
