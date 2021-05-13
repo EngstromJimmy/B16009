@@ -43,11 +43,11 @@ namespace MyBlogServerSide
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
             //<AddMyBlogDataServices>
-            services.AddDbContextFactory<MyBlogDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("MyBlogDB")));
+            services.AddDbContextFactory<MyBlogDbContext>(opt => opt.UseSqlite($"Data Source=../MyBlog.db"));
             services.AddScoped<IMyBlogApi, MyBlogApiServerSide>();
             //</AddMyBlogDataServices>
             //<Authentication>
-            services.AddDbContext<MyBlogDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("MyBlogDB")));
+            services.AddDbContext<MyBlogDbContext>(opt => opt.UseSqlite($"Data Source=../MyBlog.db"));
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<MyBlogDbContext>();

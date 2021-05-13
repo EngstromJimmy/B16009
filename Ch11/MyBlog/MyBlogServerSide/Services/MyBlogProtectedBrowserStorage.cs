@@ -4,22 +4,23 @@ using System.Threading.Tasks;
 
 namespace MyBlogServerSide.Services
 {
+//<MyBlogProtectedBrowserStorage>
     public class MyBlogProtectedBrowserStorage : IBrowserStorage
     {
-        ProtectedSessionStorage storage { get; set; }
+        ProtectedSessionStorage Storage { get; set; }
         public MyBlogProtectedBrowserStorage(ProtectedSessionStorage storage)
         {
-            this.storage = storage;
+            Storage = storage;
         }
 
         public async Task DeleteAsync(string key)
         {
-            await storage.DeleteAsync(key);
+            await Storage.DeleteAsync(key);
         }
 
         public async Task<T?> GetAsync<T>(string key)
         {
-            var value = await storage.GetAsync<T>(key);
+            var value = await Storage.GetAsync<T>(key);
             if (value.Success)
             {
                 return value.Value;
@@ -32,7 +33,8 @@ namespace MyBlogServerSide.Services
 
         public async Task SetAsync(string key, object value)
         {
-            await storage.SetAsync(key,value);
+            await Storage.SetAsync(key,value);
         }
     }
+//</MyBlogProtectedBrowserStorage>
 }

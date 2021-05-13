@@ -14,12 +14,17 @@
     <InputDate @bind-Value="post.PublishDate"></InputDate>
     <InputSelect @bind-Value="selectedCategory">
         <option value="0" disabled>None selected</option>
-        @foreach (var category in categories)
+   	@if (Categories != null)
     {
-    <option value="@category.Id">@category.Name</option>
-}
+        @foreach (var category in categories)
+    	{
+    		<option value="@category.Id">@category.Name</option>
+		}
+	}
     </InputSelect>
     <ul>
+    @if (Tags != null)
+    {
         @foreach (var tag in tags)
         {
         <li>
@@ -34,6 +39,7 @@
             }
         </li>
         }
+    }
     </ul>
         <InputTextAreaOnInput @bind-Value="post.Text" @onkeyup="UpdateHTML"></InputTextAreaOnInput>
         <button type="submit" class="btn btn-success">Save</button>

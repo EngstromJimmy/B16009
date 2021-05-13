@@ -14,13 +14,10 @@
     <InputDate @bind-Value="post.PublishDate"></InputDate>
     <InputSelect @bind-Value="selectedCategory">
         <option value="0" disabled>None selected</option>
-   	@if (Categories != null)
-    {
         @foreach (var category in categories)
-    	{
-    		<option value="@category.Id">@category.Name</option>
-		}
-	}
+    {
+    <option value="@category.Id">@category.Name</option>
+}
     </InputSelect>
     <ul>
     @if (Tags != null)

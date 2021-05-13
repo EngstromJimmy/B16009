@@ -2,10 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.Data.Interfaces;
 using MyBlog.Data.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace MyBlogWebAssembly.Server.Controllers
@@ -15,7 +12,7 @@ namespace MyBlogWebAssembly.Server.Controllers
     public class MyBlogApiController:ControllerBase
     {
         //<Constructor>
-        public IMyBlogApi api { get; set; }
+        internal readonly IMyBlogApi api;
         public MyBlogApiController(IMyBlogApi api)
         {
             this.api = api;
@@ -45,7 +42,7 @@ namespace MyBlogWebAssembly.Server.Controllers
         public async Task<BlogPost> GetBlogPostAsync(int id)
         {
             return await api.GetBlogPostAsync(id);
-         }
+        }
         //</GetBlogPostAsync>
 
         //<SaveBlogPostAsync>
