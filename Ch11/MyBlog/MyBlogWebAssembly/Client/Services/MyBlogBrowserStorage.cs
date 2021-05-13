@@ -1,29 +1,29 @@
 ﻿using MyBlog.Shared.Interfaces;
 using System.Threading.Tasks;
 using Blazored.SessionStorage;
-namespace MyBlogServerSide.Services
+namespace MyBlogWebAssembly.Client.Services
 {
     public class MyBlogBrowserStorage : IBrowserStorage
     {
-        ISessionStorageService storage { get; set; }
+        ISessionStorageService Storage { get; set; }
         public MyBlogBrowserStorage(ISessionStorageService storage)
         {
-            this.storage = storage;
+            Storage = storage;
         }
 
         public async  Task DeleteAsync(string key)
         {
-            await storage.RemoveItemAsync(key);
+            await Storage.RemoveItemAsync(key);
         }
 
         public async Task<T> GetAsync<T>(string key)
         {
-            return await storage.GetItemAsync<T>(key);
+            return await Storage.GetItemAsync<T>(key);
         }
 
         public async Task SetAsync(string key, object value)
         {
-            await storage.SetItemAsync(key,value);
+            await Storage.SetItemAsync(key,value);
         }
     }
 }
